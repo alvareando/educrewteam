@@ -1,0 +1,2 @@
+class SessionsParticipationController < ApplicationController
+end
