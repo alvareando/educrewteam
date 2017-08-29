@@ -48,12 +48,12 @@ ActiveRecord::Schema.define(version: 20170829143402) do
   end
 
   create_table "session_participations", force: :cascade do |t|
-    t.integer  "students_id"
+    t.integer  "student_id"
     t.integer  "sessions_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["sessions_id"], name: "index_session_participations_on_sessions_id", using: :btree
-    t.index ["students_id"], name: "index_session_participations_on_students_id", using: :btree
+    t.index ["student_id"], name: "index_session_participations_on_student_id", using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -69,7 +69,9 @@ ActiveRecord::Schema.define(version: 20170829143402) do
     t.boolean  "suggestion",         default: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.integer  "user_id"
     t.index ["tutor_id"], name: "index_sessions_on_tutor_id", using: :btree
+    t.index ["user_id"], name: "index_sessions_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,6 +103,7 @@ ActiveRecord::Schema.define(version: 20170829143402) do
   add_foreign_key "messages", "chatrooms", column: "chatrooms_id"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "session_participations", "sessions", column: "sessions_id"
-  add_foreign_key "session_participations", "users", column: "students_id"
+  add_foreign_key "session_participations", "users", column: "student_id"
+  add_foreign_key "sessions", "users"
   add_foreign_key "sessions", "users", column: "tutor_id"
 end

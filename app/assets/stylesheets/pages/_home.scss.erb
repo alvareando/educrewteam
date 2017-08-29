@@ -1,0 +1,50 @@
+// Specific CSS for your home-page
+body {
+ background-image: url('<%= image_path "cover.png" %>');
+ background-repeat: no-repeat;
+ background-size: 100%;
+ color: rgba(1,1,1,0.3);
+}
+.wrapper{
+  text-align: center;
+  padding-top: 40px;
+}
+
+.search-form{
+  color:black;
+  background-color:rgba(255,255,255, 0.2);
+  text-align: inline;
+  width: 60%;
+  margin: 0 auto;
+  padding: 40px;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+
+.submit-btn{
+  // background-color: blue;
+  font-family: Courier;
+  color: white;
+  opacity: 1;
+}
+
+.text-form{
+  opacity: 0.7;
+}
+
+.text-form :active{
+  opacity: 1;
+}
+
+input[type="text"], textarea {
+
+  background-color : #ECE1DE;
+  border-color:transparent;
+  color: rgba(1,1,1,0.3);
+
+}
+input[type="submit"], textarea {
+  background-color: #C37F63;
+  border-color:transparent;
+}

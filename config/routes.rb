@@ -4,5 +4,13 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :sessions, only: [:index, :show, :new, :create] do
+    resources :session_participation, only: [:create]
+    resources :chatrooms, only: [:create]
+  end
+
+  resources :chatrooms, only: [:show] do
+    resources :messages, only: [:index, :create, :destroy]
+  end
+
 end

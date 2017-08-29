@@ -1,2 +1,14 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <div class="wrapper">
+    <h1>STUDY SMARTER, NOT HARDER</h1>
+      <p>Group tutoring sessions suited to your course</p>
+        <div class="search-form">
+            <%= form_tag sessions_path, method: 'get' do %>
+              <%= text_field_tag :subject, "", placeholder: 'Subject', id: "typed" %>
+              <%= text_field_tag :university, "", placeholder: 'University' %>
+              <%= submit_tag "Find a session", class: "submit-btn btn btn-primary" %>
+            <% end %>
+        </div>
+  </div>
+</div>
+
