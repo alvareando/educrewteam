@@ -13,4 +13,6 @@ Rails.application.routes.draw do
     resources :messages, only: [:index, :create, :destroy]
   end
 
+  mount Attachinary::Engine => "/attachinary"
+
 end
