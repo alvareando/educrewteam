@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.4'
 
+gem 'cloudinary'
 gem 'omniauth-facebook'
 gem 'devise'
 gem 'figaro'
