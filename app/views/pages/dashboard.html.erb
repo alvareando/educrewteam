@@ -3,3 +3,9 @@
 <% else  %>
 <h1>Student Dashboard</h1>
 <% end %>
+
+<%= simple_form_for(current_user) do |f| %>
+  <%= f.input :first_name %>
+  <%= f.input :photo, as: :attachinary %>
+<% end %>
+
