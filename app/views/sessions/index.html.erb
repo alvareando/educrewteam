@@ -1,1 +1,21 @@
-<h1>Index</h1>
+
+<% @sessions.each do |session| %>
+<%= session.title %>
+<% end %>
+
+<div class="card-container">
+  <div class="card">
+    <img src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg" alt="Avatar" style="width:100%">
+    <div class="container">
+      <h4><b>Bob Saget</b></h4>
+      <p>Actor - Full House</p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg" alt="Avatar" style="width:100%">
+    <div class="container">
+      <h4><b>Patrick Stewart</b></h4>
+      <p>Bad Azz</p>
+  </div>
+</div>
+</div>
