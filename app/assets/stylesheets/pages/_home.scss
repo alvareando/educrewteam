@@ -1,1 +1,26 @@
 // Specific CSS for your home-page
+body {
+ background-image: url(http://www.lanecovesquash.com/wp-content/uploads/2016/11/Blog-1-Body-Image-1165-x-665-1024x585-1160x665.jpg);
+ background-repeat: no-repeat;
+}
+
+.search-form{
+  color:black;
+  text-align: inline;
+}
+
+
+.submit-btn{
+  // background-color: blue;
+  font-family: Courier;
+  color: white;
+  opacity: 1;
+}
+
+.text-form{
+  opacity: 0.7;
+}
+
+.text-form :active{
+  opacity: 1;
+}
