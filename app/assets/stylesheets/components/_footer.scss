@@ -1,0 +1,39 @@
+.footer {
+  position: fixed;
+  bottom: 0px;
+  max-height: 40px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  background-color: rgb(128,128,128);
+  opacity: 0.7;
+  margin: none;
+
+}
+
+.footer ul li {
+  list-style-type: none;
+  // padding: 10px 15px;
+
+
+}
+
+.footer-btns {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-align{
+   display: flex;
+   justify-content: space-between;
+   padding: 10px 10px;
+}
+
+.fa {
+  color:black
+}
+
+
