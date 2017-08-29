@@ -1,21 +1,71 @@
-<div class="navbar">
-  <div class="footer-btns">
-    <div class="col-xs-6 col-md-6">
-      <%= image_tag "icon.png" %>
-      <ul>
-        <div class="text-align">
-          <li>Become a tutor</li>
-          <li>How it works</li>
-        </div>
-      </ul>
-    </div>
+<div class="navbar-wagon">
+  <!-- Logo -->
+  <%= link_to root_path, class: "navbar-wagon-brand" do %>
+    <%= image_tag "icon.png" %>
+  <% end %>
+  <%= link_to "Become a tutor", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+  <%= link_to "How it works", "#", class: "navbar-wagon-item navbar-wagon-link" %>
 
-    <div class="col-xs-3 col-md-3">
-      <ul>
-        <div class="text-align">
-          <li>Sign up</li>
-          <li>Log in</li>
-        </div>
+
+  <!-- Right Navigation -->
+  <div class="navbar-wagon-right hidden-xs hidden-sm">
+
+    <% if user_signed_in? %>
+
+      <!-- Links when logged in -->
+      <%= link_to t(".suggest", default: "Suggest a session"), new_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <%= link_to t(".dashboard", default: "Dashboard"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
+              <% end %>
+
+      <!-- Avatar with dropdown menu -->
+      <div class="navbar-wagon-item">
+        <div class="dropdown">
+          <%# picture_url = current_user.google_picture_url || current_user.facebook_picture_url %>
+          <%# unless picture_url %>
+            <%# picture_url = 'http://kitt.lewagon.com/placeholder/users/meredaul' %>
+          <%# end %>
+          <%# image_tag picture_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+          <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+            <li>
+              <%= link_to "#" do %>
+                <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_session_path do %>
+                <i class= "fa fa-new"></i> <%= t(".new", default: "New Session") %>
+                <% end %>
+            </li>
+            <li>
+              <%= link_to "#" do %>
+                <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
+              <% end %>
+            </li>
+          </ul>
+
+    <% else %>
+      <!-- Login link (when logged out) -->
+      <%= link_to "Sign up", "/users/sign_up", class: "navbar-wagon-item navbar-wagon-link " %>
+      <%= link_to "Login", "/users/sign_in", class: "navbar-wagon-item navbar-wagon-link" %>
+    <% end %>
+  </div>
+
+  <!-- Dropdown list appearing on mobile only -->
+  <div class="navbar-wagon-item hidden-md hidden-lg">
+    <div class="dropdown">
+      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+      <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+        <li><%= link_to t(".login", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
+        <li><%= link_to t(".sign-up", default: "Sign up"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
+        <li><%= link_to t(".suggest", default: "Suggest a session"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
+
       </ul>
     </div>
   </div>

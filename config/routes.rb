@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
+  get "/dashboard", to: "pages#dashboard", as: "dashboard"
+
   resources :sessions, only: [:index, :show, :new, :create] do
     resources :session_participation, only: [:create]
     resources :chatrooms, only: [:create]
