@@ -18,20 +18,31 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @session = Session.new(session_params)
-    @session.tutor = current_user
-    if current_user.tutor
-      if @session.save
-        redirect_to root_path
+    new_session = Session.new(session_params)
+    if current_user.tutor?
+      new_session.tutor = current_user
+      new_session.user = nil
+      if new_session.save
+        new_chatroom = Chatroom.new()
+        new_chatroom.session = new_session
+        new_chatroom.save
+        redirect_to chatroom_path(new_chatroom)
       else
-        render "new"
+        @session = Session.new()
+        redirect_to :back
       end
     else
-      @session.suggestion = true
-      if @session.save
-        redirect_to root_path
+      new_session.tutor = nil
+      new_session.user = current_user
+      new_session.update(suggestion: true)
+      if new_session.save
+        new_chatroom = Chatroom.new()
+        new_chatroom.session = new_session
+        new_chatroom.save
+        redirect_to chatroom_path(new_chatroom)
       else
-        render "new"
+        @session = Session.new()
+        redirect_to :back
       end
     end
   end
