@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
   root to: 'pages#home'
+
+  get "/dashboard", to: "pages#dashboard", as: "dashboard"
 
   resources :sessions, only: [:index, :show, :new, :create] do
     resources :session_participation, only: [:create]
@@ -11,5 +15,4 @@ Rails.application.routes.draw do
     resources :messages, only: [:index, :create, :destroy]
   end
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
