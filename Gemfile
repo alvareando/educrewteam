@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.3.4'
 
+gem 'cloudinary', '1.1.7'
+gem 'attachinary', github: 'assembler/attachinary'
+gem 'jquery-fileupload-rails'
 gem 'omniauth-facebook'
 gem 'devise'
 gem 'figaro'

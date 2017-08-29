@@ -16,4 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:update]
+  
+  mount Attachinary::Engine => "/attachinary"
+
 end
