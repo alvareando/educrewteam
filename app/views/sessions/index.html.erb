@@ -1,21 +1,22 @@
+<div class="index-container">
+  <div class="filter-container">
 
-<% @sessions.each do |session| %>
-<%= session.title %>
-<% end %>
-
-<!-- <div class="card-container"></div>
-  <div class="card">
-    <img src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg" alt="Avatar" style="width:100%">
-    <div class="container">
-      <h4><b>Bob Saget</b></h4>
-      <p>Actor - Full House</p>
+  </div>
+  <div class="card-container">
+    <div class="row">
+        <% @sessions.each do |session| %>
+          <div class="col-xs-6 col-md-4">
+            <div class="card">
+              <div class="card-img-top" style="background: url(<%= cl_image_path session.user.photo.path %>)">
+                <div class="card-description">
+                  <p><%= session.description %></p>
+                </div>
+              </div>
+              <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
+              <p class="card-title"><%= session.title %></p>
+            </div>
+          </div>
+        <% end %>
     </div>
   </div>
-  <div class="card">
-    <img src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg" alt="Avatar" style="width:100%">
-    <div class="container">
-      <h4><b>Patrick Stewart</b></h4>
-      <p>Bad Azz</p>
-  </div>
-</div> -->
-
+</div>
