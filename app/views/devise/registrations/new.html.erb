@@ -1,17 +1,38 @@
-<h2>Sign up</h2>
+<div class="container sign-up-container">
+  <div class="wrapper">
+    <div class="title">
+      <h1>Create an account</h1>
+        <p>Already have an account? <%= link_to "Sign in here",new_user_session_path %> </p>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 social-media-btns flex-content">
+        <div class="social-media-content">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+        <div class="col-sm-6 sign-up-form flex-content">
+          <div class="sign-up-content">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-    <%= f.input :password_confirmation, required: true %>
+              <div class="form-inputs">
+                <%= f.input :first_name, label: "", required: true, autofocus: true, placeholder: "First name" %>
+                <%= f.input :last_name, label: "", required: true, autofocus: true, placeholder: "Last name" %>
+                <%= f.input :email, label: "", required: true, autofocus: true, placeholder: "Email address" %>
+                <%= f.input :password, label: "", required: true, placeholder: "Password", hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+                <%= f.input :password_confirmation, label: "", required: true, placeholder: "Password" %>
+              </div>
+
+              <div class="form-actions">
+                <%= f.button :submit, "Sign up", class: "sign-in-btn" %>
+              </div>
+            <% end %>
+            <br>
+            <p>By submitting this form you agree to Educrew’s <a href="#">Terms and conditions</a></p>
+          </div>
+        </div>
+    </div>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
