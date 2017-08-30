@@ -3,3 +3,25 @@
 <% else  %>
 <h1>Student Dashboard</h1>
 <% end %>
+<%= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>
+  <i class="fa fa-wrench"></i>
+<% end %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <%= simple_form_for(current_user) do |f| %>
+          <%= f.input :first_name %>
+          <%= f.input :photo, as: :attachinary %>
+
+          <%= f.submit %>
+          <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

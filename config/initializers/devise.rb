@@ -9,6 +9,14 @@ Devise.setup do |config|
     info_fields: 'email, first_name, last_name',
     image_size: 'square',  # 50x50, guaranteed ratio
     secure_image_url: true
+
+  config.omniauth :google_oauth2, ENV["GOO_ID"], ENV["GOO_SECRET"],
+    scope: 'profile, email',
+    info_fields: 'email, first_name, last_name',
+    image_aspect_ratio: 'square',
+    image_size: 48, # 50x50, guaranteed ratio
+    secure_image_url: true,
+    access_type: 'online'
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
