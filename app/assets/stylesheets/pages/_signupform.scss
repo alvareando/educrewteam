@@ -15,9 +15,25 @@
     margin-bottom: 30px;
     text-align: center;
   }
-  .btn {
-    width: 100%;
-    margin-bottom: 20px
-  }
 }
 
+.social-media-content{
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  border-right: solid 2px;
+  border-right-color: rgba(151,151,151,0.3);
+
+
+  // align-align: center;
+  justify-content: center;
+  padding-right: 40px;
+  padding-bottom:5px;
+}
+abbr[title], abbr[data-original-title] {
+  display:none;
+}
+
+.media-btn-one {
+  padding-bottom: 20px;
+}
