@@ -1,12 +1,15 @@
 source 'https://rubygems.org'
 ruby '2.3.4'
 
+gem 'omniauth-google-oauth2'
+
 gem 'cloudinary', '1.1.7'
 gem 'attachinary', github: 'assembler/attachinary'
 gem 'jquery-fileupload-rails'
 gem 'omniauth-facebook'
 gem 'devise'
 gem 'figaro'
+gem 'coffee-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'pg'
 gem 'puma'
