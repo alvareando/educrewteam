@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829112030) do
+ActiveRecord::Schema.define(version: 20170830100833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attachinary_files", force: :cascade do |t|
+    t.string   "attachinariable_type"
+    t.integer  "attachinariable_id"
+    t.string   "scope"
+    t.string   "public_id"
+    t.string   "version"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "format"
+    t.string   "resource_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["attachinariable_type", "attachinariable_id", "scope"], name: "by_scoped_parent", using: :btree
+  end
 
   create_table "chatrooms", force: :cascade do |t|
     t.integer  "session_id"
@@ -33,12 +48,12 @@ ActiveRecord::Schema.define(version: 20170829112030) do
   end
 
   create_table "session_participations", force: :cascade do |t|
-    t.integer  "student_id"
+    t.integer  "students_id"
     t.integer  "sessions_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["sessions_id"], name: "index_session_participations_on_sessions_id", using: :btree
-    t.index ["student_id"], name: "index_session_participations_on_student_id", using: :btree
+    t.index ["students_id"], name: "index_session_participations_on_students_id", using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -80,6 +95,7 @@ ActiveRecord::Schema.define(version: 20170829112030) do
     t.string   "facebook_picture_url"
     t.string   "token"
     t.datetime "token_expiry"
+    t.string   "google_picture_url"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
@@ -88,7 +104,7 @@ ActiveRecord::Schema.define(version: 20170829112030) do
   add_foreign_key "messages", "chatrooms", column: "chatrooms_id"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "session_participations", "sessions", column: "sessions_id"
-  add_foreign_key "session_participations", "users", column: "student_id"
+  add_foreign_key "session_participations", "users", column: "students_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "sessions", "users", column: "tutor_id"
 end
