@@ -1,21 +1,24 @@
-
-<% @sessions.each do |session| %>
-<%= session.title %>
-<% end %>
-
-<div class="card-container">
-  <div class="card">
-    <img src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg" alt="Avatar" style="width:100%">
-    <div class="container">
-      <h4><b>Bob Saget</b></h4>
-      <p>Actor - Full House</p>
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="main-container">
+        <div class="title-container">
+          <h1>Available sessions</h1>
+        </div>
+        <div class="card-container">
+          <div class="card col-xs-12 col-md-8">
+              <% @sessions.each do |session| %>
+                <%= link_to session_path(session) do %>
+                  <% if facebook_picture_url? %>
+                    <% img = cl_image_path user.photo %>
+                  <% else %>
+                    <% image_path 'logo.png' %>
+                  <% end %>
+                <% end %>
+                <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="card">
-    <img src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg" alt="Avatar" style="width:100%">
-    <div class="container">
-      <h4><b>Patrick Stewart</b></h4>
-      <p>Bad Azz</p>
-  </div>
-</div>
 </div>
