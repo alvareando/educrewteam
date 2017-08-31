@@ -1,0 +1,189 @@
+
+// Left Information
+
+.session-left {
+  height: 100%;
+  width: 70%;
+  padding: 30px 0 0 0;
+}
+
+.session-title {
+  font-weight: 700;
+  color: #484848;
+  font-size: 40px;
+}
+
+.details {
+  font-weight: lighter;
+  color: #484848;
+}
+
+.title {
+  font-weight: normal;
+  color: #484848;
+  text-align: left;
+  width: 200px;
+  font-size: 16px;
+}
+
+.description {
+  font-weight: 300;
+  color: #484848;
+  width: 70%;
+  margin-left: 38px;
+  font-size: 14px;
+}
+
+.title-details {
+  margin-bottom: 25px;
+}
+
+.session-container{
+  background-color: white;
+  border-radius: 4px;
+  padding: 25px 20px;
+  margin-bottom: 20px;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+}
+
+.tutor-info {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.session-info {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.benefits-info {
+  display: flex;
+}
+
+// Review section
+
+.reviews-container {
+  padding-bottom: 60px;
+}
+
+.review-title {
+  font-weight: 700;
+  color: #484848;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.placeholder-avatar {
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.review {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-description {
+  font-weight: 300;
+  color: #484848;
+  font-size: 12px;
+}
+
+.review-username {
+  font-weight: normal;
+  color: #484848;
+  font-size: 14px;
+}
+
+.review-date {
+  font-weight: lighter;
+  color: #484848;
+  font-size: 12px;
+}
+
+.username-and-date {
+  width: 200px;
+}
+
+
+
+// Right Information - sticky div
+
+.sticky-content {
+  display: flex;
+}
+
+.session-right {
+  flex: 0 0 450px;
+  height: 100vh;
+  position: sticky !important; /* !important to override Gmaps inline CSS */
+  top: 0 !important;
+  margin-left: 50px;
+  padding: 20px;
+  background-color: #484848;
+  color: white;
+}
+
+.placeholder-big-avatar {
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.teacher-id {
+  display: flex;
+  padding: 20px;
+}
+
+.teacher-id h3 {
+  font-size: 25px;
+}
+
+.duration i {
+  color: white;
+}
+
+.price i {
+  color: white;
+}
+
+.joined {
+  margin-top: 20px;
+  display: flex;
+}
+
+.price {
+  font-size: 16px;
+  padding: 20px;
+}
+
+.duration {
+  font-size: 16px;
+  padding: 0 0 0 20px;
+}
+
+.join-button {
+  color: white;
+  background-color: #da552f;
+  border-radius: 3px;
+  padding: 15px 20px;
+  margin-top: 20px;
+  width: 178px;
+}
+
+.user-join-avatar{
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+
+}
+.joined-username {
+  font-weight: normal;
+  color: white;
+  font-size: 14px;
+}
+.joined-title {
+  margin-top: 20px;
+}
+
+
