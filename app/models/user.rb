@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :sessions_as_student, foreign_key: 'tutor_id'
   has_many :sessions_as_tutor, foreign_key: 'user_id'
 
-  has_many :messages, foreign_key: 'sender_id', dependent: :destroy
+  has_many :messages, foreign_key: 'sender_id', dependent: :nullify
 
   has_attachment :photo
 
