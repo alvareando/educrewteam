@@ -2,7 +2,8 @@
   <div class="wrapper">
     <div class="title">
       <h1>Log in</h1>
-      <p>Don't have an account? <%= link_to "Sign up here",new_user_registration_path %> </p>
+        <p>Don't have an account? <%= link_to "Sign up here",new_user_registration_path %>
+        </p>
     </div>
     <div class="row">
       <div class="col-sm-6 social-media-btns flex-content">
@@ -10,27 +11,28 @@
           <%= render "devise/shared/links" %>
         </div>
       </div>
-        <div class="col-sm-6 sign-up-form flex-content">
-          <div class="sign-in-content">
+      <div class="col-sm-6 sign-up-form flex-content">
+        <div class="sign-in-content">
 
-            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-              <%= f.error_notification %>
+          <%= simple_form_for(resource, as: resource_name, url: '/users/sign_in') do |f| %>
+            <%= f.error_notification %>
 
-              <div class="form-inputs">
-                <%= f.input :email, required: false, autofocus: true %>
-            <%= f.input :password, required: false %>
-            <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-              </div>
+            <div class="form-inputs">
+              <%= f.input :email, required: false, autofocus: true %>
+              <%= f.input :password, required: false %>
+              <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+            </div>
 
-              <div class="form-actions">
-                <%= f.button :submit, "Sign up", class: "sign-in-btn" %>
-              </div>
-            <% end %>
-            <br>
-            <p>By submitting this form you agree to Educrew’s <a href="#">Terms and conditions</a></p>
-          </div>
+            <div class="form-actions">
+              <%= f.button :submit, "Log in", class: "sign-in-btn" %>
+            </div>
+          <% end %>
+          <br>
+          <p>By submitting this form you agree to Educrew’s <a href="#">Terms and conditions</a></p>
         </div>
+      </div>
     </div>
   </div>
 </div>
+
 

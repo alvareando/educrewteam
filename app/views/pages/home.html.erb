@@ -1,12 +1,20 @@
 <div class="homepage-banner">
-  <div class="wrapper">
+  <div class="title-homepage">
     <h1>STUDY SMARTER, NOT HARDER</h1>
       <p>Group tutoring sessions suited to your course</p>
-        <div class="search-form">
-            <%= form_tag sessions_path, method: 'get' do %>
-            <%= text_field_tag :subject, "", placeholder: 'Subject', class: "search-btn" %>
-            <%= text_field_tag :university, "", placeholder: 'University', class: "search-btn" %><%= submit_tag "Find a session", class: "submit-btn btn btn-primary" %>
-            <% end %>
-        </div>
   </div>
+        <div class="search-form">
+                      <%= form_tag sessions_path, method: 'get', class: "search-form-two" do %>
+            <!-- <div class="item-1">
+ -->            <%= text_field_tag :subject, "", placeholder: 'Subject', class: "search-btn subject" %>
+            <!-- </div>
+            <div class="item-2"> -->
+            <%= text_field_tag :university, "", placeholder: 'University', class: "search-btn university" %>
+            <!-- </div>
+            <div class="item-3"> -->
+            <%= submit_tag "Find a session", class: "submit-btn btn btn-primary" %>
+            <!-- </div> -->
+            <% end %>
+
+        </div>
 </div>
