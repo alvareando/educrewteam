@@ -1,15 +1,21 @@
 <div class='container background_creation_image' >
+  <div class="suggest-title">
 
-  <%= simple_form_for @session do |f| %>
-    <%= f.input :university  %>
-    <%= f.input :subject  %>
-    <%= f.input :price  %>
-    <%= f.input :time  %>
-    <%= f.input :date  %>
-    <%= f.input :title %>
-    <%= f.input :description %>
+  <h1 style="text-align: center; padding: 15px;">Suggest a session</h1>
+    <div class="suggest-form">
+      <%= simple_form_for @session do |f| %>
+        <%= f.input :title %>
+        <%= f.input :university  %>
+        <%= f.input :subject  %>
+        <%= f.input :time, default: Time.parse('9:00'), minute_step: 15 %>
+        <%= f.input :date, selected: Date.today, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+        <%= f.input :price  %>
+        <%= f.input :description, as: :text, input_html: { rows: "4" } %>
 
-    <%= f.button :submit, "Add session"  %>
-  <% end %>
-
+        <%= f.button :submit, "Add session", class: "add-session-btn sign-up-btn"  %>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+

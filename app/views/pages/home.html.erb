@@ -4,17 +4,12 @@
       <p>Group tutoring sessions suited to your course</p>
   </div>
         <div class="search-form">
-                      <%= form_tag sessions_path, method: 'get', class: "search-form-two" do %>
-            <!-- <div class="item-1">
- -->            <%= text_field_tag :subject, "", placeholder: 'Subject', class: "search-btn subject" %>
-            <!-- </div>
-            <div class="item-2"> -->
+          <%= form_tag sessions_path, method: 'get', class: "search-form-two" do %>
+            <%= text_field_tag :subject, "", placeholder: 'Subject', class: "search-btn subject" %>
             <%= text_field_tag :university, "", placeholder: 'University', class: "search-btn university" %>
-            <!-- </div>
-            <div class="item-3"> -->
-            <%= submit_tag "Find a session", class: "submit-btn btn btn-primary" %>
-            <!-- </div> -->
+            <%= submit_tag "Find a session", class: "submit-btn btn" %>
             <% end %>
 
         </div>
 </div>
+
