@@ -1,15 +1,52 @@
-<% if current_user.tutor %>
-<h1>Tutor Dashboard</h1>
-<% else  %>
-<h1>Student Dashboard</h1>
-<% end %>
-<%= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>
-  <i class="fa fa-wrench"></i>
-<% end %>
+
+<%#= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>
+  <!-- <i class="fa fa-wrench"></i> -->
+<%# end %>
+
+<div class="container">
+  <div class="dashboard-title">
+    <h2>Student Dashboard</h2>
+  </div>
+    <div class="dashboard-left">
+      <div class="upcoming-sessions-title">
+        <h1>Upcoming Sessions</h1>
+      </div>
+      <div class="upcoming-sessions-cards">
+        <div class="row">
+          <% @sessions.each do |session| %>
+            <div class="col-xs-6 col-md-4">
+              <%= link_to session_path(session) do %>
+                <div class="card">
+                <% if session.user.photo %>
+                  <% url = session.user.photo.path %>
+                <% else %>
+                  <% url = "sample" %>
+                <% end %>
+                  <div class="card-img-top" style="background: url(<%= cl_image_path url %>)">
+                    <div class="card-description">
+                      <p><%= session.description %></p>
+                    </div>
+                  </div>
+                  <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
+                  <p class="card-title"><%= session.title %></p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -24,4 +61,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

@@ -5,5 +5,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    @sessions = []
+
   end
 end
