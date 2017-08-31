@@ -6,16 +6,18 @@
     <div class="row">
         <% @sessions.each do |session| %>
           <div class="col-xs-6 col-md-4">
-            <div class="card">
-              <div class="card-img-top" style="background: url(<%= cl_image_path session.user.photo.path %>)">
-                <div class="card-description">
-                  <p><%= session.description %></p>
+            <%= link_to session_path(session) do %>
+              <div class="card">
+                <div class="card-img-top" style="background: url(<%= cl_image_path session.user.photo.path %>)">
+                  <div class="card-description">
+                    <p><%= session.description %></p>
+                  </div>
                 </div>
+                <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
+                <p class="card-title"><%= session.title %></p>
               </div>
-              <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
-              <p class="card-title"><%= session.title %></p>
             </div>
-          </div>
+          <% end %>
         <% end %>
     </div>
   </div>
