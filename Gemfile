@@ -17,7 +17,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'pg'
 gem 'puma'
 gem 'rails', '5.0.5'
-gem 'redis'
+gem 'redis', '< 4.0.0'
 
 gem 'autoprefixer-rails'
 gem 'coffee-rails'
