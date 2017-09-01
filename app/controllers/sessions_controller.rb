@@ -31,18 +31,18 @@ class SessionsController < ApplicationController
       else
         render :new
       end
-    else
-      @session.tutor = nil
-      @session.user = current_user
-      @session.update(suggestion: true)
-      if @session.save
-        new_chatroom = Chatroom.new()
-        new_chatroom.session = @session
-        new_chatroom.save
-        redirect_to chatroom_path(new_chatroom)
-      else
-        render :new
-      end
+    # else
+    #   @session.tutor = nil
+    #   @session.user = current_user
+    #   @session.update(suggestion: true)
+    #   if @session.save
+    #     new_chatroom = Chatroom.new()
+    #     new_chatroom.session = @session
+    #     new_chatroom.save
+    #     redirect_to chatroom_path(new_chatroom)
+    #   else
+    #     render :new
+    #   end
     end
   end
 

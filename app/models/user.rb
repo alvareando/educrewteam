@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   has_many :messages, foreign_key: 'sender_id', dependent: :nullify
+  has_many :session_participations
+  has_many :sessions, through: :session_participations
 
   has_attachment :photo
 
@@ -15,9 +17,9 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def participating_sessions
-    Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id)
-  end
+  # def participating_sessions
+  #   Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id)
+  # end
 
   def self.find_for_facebook_oauth(auth)
     user_params = auth.slice(:provider, :uid)
