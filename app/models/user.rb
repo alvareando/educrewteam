@@ -1,8 +1,6 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :sessions_as_student, foreign_key: 'tutor_id'
-  has_many :sessions_as_tutor, foreign_key: 'user_id'
 
   has_many :messages, foreign_key: 'sender_id', dependent: :nullify
 
@@ -12,6 +10,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   devise :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
+
+  def name
+    "#{first_name} #{last_name}"
+  end
+
+  def participating_sessions
+    Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id)
+  end
 
   def self.find_for_facebook_oauth(auth)
     user_params = auth.slice(:provider, :uid)
@@ -35,7 +41,7 @@ class User < ApplicationRecord
     return user
   end
 
-  def self.from_google_omniauth(auth)
+  def self.from_omniauth(auth)
     user_params = auth.slice(:provider, :uid)
     user_params.merge! auth.info.slice(:email, :first_name, :last_name)
     user_params[:google_picture_url] = auth.info.image
