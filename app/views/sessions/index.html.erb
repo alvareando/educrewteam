@@ -1,24 +1,24 @@
-<div class="index-container">
-  <div class="filter-container">
-
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <p>filter bar</p>
+    </div>
   </div>
-  <div class="card-container">
-    <div class="row">
-        <% @sessions.each do |session| %>
-          <div class="col-xs-6 col-md-4">
-            <%= link_to session_path(session) do %>
-              <div class="card">
-                <div class="card-img-top" style="background: url(<%= cl_image_path session.user.photo.path %>)">
-                  <div class="card-description">
-                    <p><%= session.description %></p>
-                  </div>
-                </div>
-                <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
-                <p class="card-title"><%= session.title %></p>
+  <div class="row">
+    <% @sessions.each do |session| %>
+      <div class="col-xs-6 col-sm-4 col-md-3">
+        <%= link_to session_path(session), class: "sessions-card-link" do %>
+          <div class="card">
+            <div class="card-img-top" style="background: url(<%= cl_image_path session.user.photo.path %>)">
+              <div class="card-description">
+                <p><%= session.description %></p>
               </div>
             </div>
-          <% end %>
-        <% end %>
-    </div>
+            <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
+            <p class="card-title"><%= session.title %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

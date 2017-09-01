@@ -6,4 +6,8 @@ class PagesController < ApplicationController
 
   def dashboard
   end
+
+  def tutor_dashboard
+
+  end
 end

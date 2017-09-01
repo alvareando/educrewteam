@@ -1,0 +1,7 @@
+ <h2>Become a tutor</h2>
+ <p>Tell us your experience as a tutor!</p>
+
+ <%= simple_form_for @user, url: update_to_tutor_path, method: :patch do |f| %>
+    <%= f.input :about, required: true, autofocus: true %>
+    <%= f.button :submit, "Become a tutor"  %>
+  <% end %>
