@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
     <% @sessions.each do |session| %>
-      <% if session.suggestion %>
+      <% unless session.suggestion %>
         <div class="col-xs-6 col-sm-4 col-md-3">
           <%= link_to session_path(session), class: "sessions-card-link" do %>
             <div class="card">
-              <% if session.user.photo %>
+              <%if session.user.photo %>
                   <% url = session.user.photo.path %>
                 <% else %>
                   <% url = "sample" %>
