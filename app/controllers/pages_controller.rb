@@ -7,4 +7,8 @@ class PagesController < ApplicationController
   def dashboard
     @sessions = current_user.participating_sessions
   end
+
+  def tutor_dashboard
+
+  end
 end
