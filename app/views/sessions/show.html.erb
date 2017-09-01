@@ -21,7 +21,7 @@
             About me
           </div>
           <div class="description">
-            I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2.
+            <%= @user.about %>
           </div>
         </div>
         <hr>
@@ -30,7 +30,7 @@
             What we'll do
           </div>
           <div class="description">
-            <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%>
+            <%=@session.description%>
           </div>
         </div>
         <hr>
@@ -39,7 +39,7 @@
             What you´ll get
           </div>
           <div class="description">
-            I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you.
+            I will provide past papers that we'll do during the session.
           </div>
         </div>
       </div>
@@ -60,11 +60,11 @@
                 Arthur Littman
               </div>
               <div class="review-date">
-                25 of April 2017
+                25 of June 2017
               </div>
             </div>
             <div class="review-description">
-              This guy is fucking crazy he killed his cat in them middle of the lecture. Do not trust this bastard.
+              This guy is very very good. Productivity wise one hour with him is like one day on my own.
             </div>
           </div>
           <hr>
@@ -74,14 +74,14 @@
             </div>
             <div class="username-and-date">
               <div class="review-username">
-                Arthur Littman
+                Dixon Lewis
               </div>
               <div class="review-date">
-                25 of April 2017
+                20 of April 2017
               </div>
             </div>
             <div class="review-description">
-              This guy is fucking crazy he killed his cat in them middle of the lecture. Do not trust this bastard.
+              Amazing teacher. We went all toghether through last years exam. Also the other students on the session were very helpful
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@
         </div>
         <div class="teacher-id">
           <img src="http://placehold.it/80x80" alt="" class="placeholder-big-avatar">
-          <h3>Alex Benoît</h3>
+          <h3><%= @session.tutor %></h3>
         </div>
       </div>
       <div class="sticky-container">
@@ -107,10 +107,10 @@
           <i class="fa fa-hourglass-half" aria-hidden="true"></i> 3 hours
         </div>
         <div class="price">
-          <i class="fa fa-money" aria-hidden="true"></i> Price per person
+          <i class="fa fa-money" aria-hidden="true"></i> £<%= @session.price %>
         </div>
         <div class="join-button text-center">
-          Book your seat
+          <%= link_to "Book your seat", session_session_participations_path(@session), method: :post %>
         </div>
           <div class="joined-title">
             Already joined:

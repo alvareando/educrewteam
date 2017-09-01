@@ -1,28 +1,25 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
-      <p>filter bar</p>
-    </div>
-  </div>
-  <div class="row">
     <% @sessions.each do |session| %>
-      <div class="col-xs-6 col-sm-4 col-md-3">
-        <%= link_to session_path(session), class: "sessions-card-link" do %>
-          <div class="card">
-            <% if session.user.photo %>
-                <% url = session.user.photo.path %>
-              <% else %>
-                <% url = "sample" %>
-              <% end %>
-            <div class="card-img-top" style="background: url(<%= cl_image_path url %>)">
-              <div class="card-description">
-                <p><%= session.description %></p>
+      <% if session.suggestion %>
+        <div class="col-xs-6 col-sm-4 col-md-3">
+          <%= link_to session_path(session), class: "sessions-card-link" do %>
+            <div class="card">
+              <% if session.user.photo %>
+                  <% url = session.user.photo.path %>
+                <% else %>
+                  <% url = "sample" %>
+                <% end %>
+              <div class="card-img-top" style="background: url(<%= cl_image_path url %>)">
+                <div class="card-description">
+                  <p><%= session.description %></p>
+                </div>
               </div>
+              <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
+              <p class="card-title"><%= session.title %></p>
             </div>
-            <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
-            <p class="card-title"><%= session.title %></p>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
