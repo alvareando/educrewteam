@@ -129,6 +129,15 @@
 .placeholder-big-avatar {
   border-radius: 50%;
   margin-right: 15px;
+  height: 80px;
+  width: 80px;
+}
+
+.placeholder-small-avatar {
+  border-radius: 50%;
+  margin-right: 15px;
+  height: 50px;
+  width: 50px;
 }
 
 .teacher-id {
@@ -163,13 +172,23 @@
   padding: 0 0 0 20px;
 }
 
+.join-button-container {
+  margin: 30px 0;
+}
+
 .join-button {
   color: white;
   background-color: #da552f;
   border-radius: 3px;
   padding: 15px 20px;
-  margin-top: 20px;
   width: 178px;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #b7401d;
+    color: white;
+    text-decoration: none;
+  }
 }
 
 .user-join-avatar{

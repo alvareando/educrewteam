@@ -3,6 +3,7 @@ class Session < ApplicationRecord
   belongs_to :user, optional: true
 
   has_one :chatroom
+  has_many :session_participations
 
   validates :subject, presence: true
 end

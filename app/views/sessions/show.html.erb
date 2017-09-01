@@ -8,10 +8,10 @@
 
       <div class="title-details">
         <div class="session-title">
-          <%=@session.title%>
+          <%= @session.title %>
         </div>
         <div class="details">
-          <%=@session.university%>
+          <%= @session.university %>
         </div>
       </div>
 
@@ -30,7 +30,7 @@
             What we'll do
           </div>
           <div class="description">
-            <%=@session.description%>
+            <%= @session.description %>
           </div>
         </div>
         <hr>
@@ -98,8 +98,8 @@
           Taught by:
         </div>
         <div class="teacher-id">
-          <img src="http://placehold.it/80x80" alt="" class="placeholder-big-avatar">
-          <h3><%= @session.tutor %></h3>
+          <%= image_tag @session.tutor.picture, class: "placeholder-big-avatar" %>
+          <h3><%= @session.tutor.name %></h3>
         </div>
       </div>
       <div class="sticky-container">
@@ -109,15 +109,15 @@
         <div class="price">
           <i class="fa fa-money" aria-hidden="true"></i> £<%= @session.price %>
         </div>
-        <div class="join-button text-center">
-          <%= link_to "Book your seat", session_session_participations_path(@session), method: :post %>
+        <div class="join-button-container">
+          <%= link_to "Book your seat", session_session_participations_path(@session), method: :post, class: "join-button" %>
         </div>
           <div class="joined-title">
             Already joined:
           </div>
           <div class="joined">
             <div class="user-join-avatar">
-              <img src="http://placehold.it/50x50" alt="" class="placeholder-avatar">
+              <img src="http://kitt.lewagon.com/placeholder/users/arthur-littm" alt="" class="placeholder-small-avatar">
               <div class="joined-username">
               Arthur Littman
               </div>
