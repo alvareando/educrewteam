@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:update]
-  
+
   mount Attachinary::Engine => "/attachinary"
+  mount ActionCable.server => "/cable"
 
 end

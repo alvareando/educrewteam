@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.3.4'
 
+
+gem 'sprockets', '>= 3.0.0'
+gem 'sprockets-es6'
 gem 'omniauth-google-oauth2'
 
 gem 'cloudinary', '1.1.7'
