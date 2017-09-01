@@ -4,7 +4,7 @@
   <h1 style="text-align: center; padding: 15px;">New session</h1>
     <div class="suggest-form">
       <%= simple_form_for @session do |f| %>
-        <%= f.input :title %>
+        <%= f.input :title, class: "suggest-input" %>
         <%= f.input :university  %>
         <%= f.input :subject  %>
         <%= f.input :time, default: Time.parse('9:00'), minute_step: 15, value: "now" %>
@@ -14,31 +14,6 @@
         <%= f.button :submit, "Add session", class: "add-session-btn sign-up-btn"  %>
       <% end %>
     </div>
-    <div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
   </div>
-
 </div>
 
-
-<%= content_for(:after_js) do %>
-        <script type="text/javascript" language="JavaScript">
-            (function () {
-                ('#datetimepicker1').datetimepicker();
-            });
-        </script>
-
-        <% end %>

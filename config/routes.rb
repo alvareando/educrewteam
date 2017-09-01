@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   patch "/become-a-tutor/", to: "users#update_to_tutor", as: "update_to_tutor"
 
-
   mount Attachinary::Engine => "/attachinary"
+  mount ActionCable.server => "/cable"
 
 end
