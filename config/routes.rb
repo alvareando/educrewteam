@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "/tutor_dashboard", to: "pages#tutor_dashboard", as: "tutor_dashboard"
 
   resources :sessions, only: [:index, :show, :new, :create] do
-    resources :session_participation, only: [:create]
+    resources :session_participations, only: [:create]
     resources :chatrooms, only: [:create]
   end
 

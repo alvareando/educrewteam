@@ -48,6 +48,7 @@ class SessionsController < ApplicationController
 
   def show
     @session = Session.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
