@@ -8,7 +8,12 @@
           <div class="col-xs-6 col-md-4">
             <%= link_to session_path(session) do %>
               <div class="card">
-                <div class="card-img-top" style="background: url(<%= cl_image_path session.user.photo.path %>)">
+              <% if session.user.photo %>
+                <% url = session.user.photo.path %>
+              <% else %>
+                <% url = "sample" %>
+              <% end %>
+                <div class="card-img-top" style="background: url(<%= cl_image_path url %>)">
                   <div class="card-description">
                     <p><%= session.description %></p>
                   </div>
