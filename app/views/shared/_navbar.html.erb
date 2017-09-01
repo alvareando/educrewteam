@@ -60,8 +60,7 @@
         <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
           <li><%= link_to t(".login", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
             <li><%= link_to t(".sign-up", default: "Sign up"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
-              <% make_session = current_user.tutor ? "Create a session" : "Suggest a session" %>
-              <li><%= link_to t(".suggest", default: make_session), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
+              <li><%= link_to t(".suggest", default: "Suggest a session"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
 
         </ul>
     </div>
