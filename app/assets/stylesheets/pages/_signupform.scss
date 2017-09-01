@@ -1,6 +1,10 @@
-.title{
+.signup-title{
   text-align: center;
-  padding: 20px;
+  font-size: 22px;
+  padding: 15px 0px;
+  p{
+    font-size:28px;
+  }
 }
 
 .form-login {
@@ -38,13 +42,15 @@ abbr[title], abbr[data-original-title] {
   padding-bottom: 20px;
 }
 
-.sign-in-btn {
+.sign-up-btn {
   background-color: rgba(195,127,99,0.7);
   color: white;
   border-color:transparent;
 }
 
-.sign-in-btn:hover{
+.sign-up-btn:hover{
   color: white;
   background-color: #C37F63
 }
+
+
