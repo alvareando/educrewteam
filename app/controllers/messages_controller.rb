@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @chatroom = Chatroom.find(params[:chatroom_id])
     @message.chatroom = @chatroom
-    @message.user = current_user
+    @message.sender = current_user
 
     if @message.save
       respond_to do |format|
@@ -23,7 +23,7 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:content)
+    params.require(:message).permit(:body)
   end
 
 end

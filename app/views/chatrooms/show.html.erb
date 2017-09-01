@@ -4,7 +4,7 @@
       <div class="chat-header"><h4>#<%= @chatroom.session.title %></h4></div>
       <div class="messages">
         <% @chatroom.messages.each do |message| %>
-          <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
+          <%= render "messages/message", message: message, user_is_messages_author: message.from?(current_user), c_user: current_user %>
         <% end %>
       </div>
       <div id="create-message">
@@ -15,12 +15,17 @@
     </div>
   </div>
 </div>
-<% content_for :after_js do %>
+
+<%= content_for :after_js do %>
   <script>
     scrollLastMessageIntoView();
-    App['chatroom_<%= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatRoomsChannel', chatroom_id: <%= @chatroom.id %> }, {
+    console.log('123');
+
+    App['chatroom_<%= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%= @chatroom.id %> }, {
       received: (data) => {
-        if (data.current_user_id !== <%= current_user.id %>) {
+        console.log('543221');
+        // if (data.current_user_id !== <%#current_user.id %>) {
+           if (data.c_user !== <%= current_user.id %>) {
           const messagesContainer = document.querySelector('.messages');
           messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
           scrollLastMessageIntoView();
