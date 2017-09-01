@@ -17,7 +17,7 @@
     <%= yield %>
     <%= render 'shared/footer' %>
     <%= javascript_include_tag 'application' %>
-
+    <%= yield(:after_js) %>
     <script language="JavaScript">
 <!--
 var space = " ";

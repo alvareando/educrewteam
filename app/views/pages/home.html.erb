@@ -3,13 +3,12 @@
     <h1>STUDY SMARTER, NOT HARDER</h1>
       <p>Group tutoring sessions suited to your course</p>
   </div>
-        <div class="search-form">
-          <%= form_tag sessions_path, method: 'get', class: "search-form-two" do %>
-            <%= text_field_tag :subject, "", placeholder: 'Subject', class: "search-btn subject" %>
-            <%= text_field_tag :university, "", placeholder: 'University', class: "search-btn university" %>
-            <%= submit_tag "Find a session", class: "submit-btn btn" %>
-            <% end %>
-
-        </div>
+  <div class="home-search-form">
+    <%= form_tag sessions_path, method: 'get', class: "home-search-form-two" do %>
+      <%= text_field_tag :subject, "", placeholder: 'Subject', class: "home-search-btn home-subject" %>
+      <%= text_field_tag :university, "", placeholder: 'University', class: "home-search-btn home-university" %>
+      <%= submit_tag "Find a session", class: "home-submit-btn btn" %>
+      <% end %>
+  </div>
 </div>
 

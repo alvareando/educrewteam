@@ -5,7 +5,6 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @sessions = []
-
+    @sessions = current_user.participating_sessions
   end
 end
