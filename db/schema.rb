@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170901101932) do
+ActiveRecord::Schema.define(version: 20170901151252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,12 +48,12 @@ ActiveRecord::Schema.define(version: 20170901101932) do
   end
 
   create_table "session_participations", force: :cascade do |t|
-    t.integer  "students_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "session_id"
+    t.integer  "student_id"
     t.index ["session_id"], name: "index_session_participations_on_session_id", using: :btree
-    t.index ["students_id"], name: "index_session_participations_on_students_id", using: :btree
+    t.index ["student_id"], name: "index_session_participations_on_student_id", using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -105,7 +105,6 @@ ActiveRecord::Schema.define(version: 20170901101932) do
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "session_participations", "sessions"
-  add_foreign_key "session_participations", "users", column: "students_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "sessions", "users", column: "tutor_id"
 end

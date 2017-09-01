@@ -1,7 +1,11 @@
 class SessionParticipationsController < ApplicationController
   def create
-    student_id = current_user.id
     session = Session.find(params[:session_id])
-    redirect_to chatroom_path(session.chatroom)
+    participation = SessionParticipation.new(session: session, student: current_user)
+    if participation.save
+      redirect_to chatroom_path(session.chatroom, notice: "Thanks for joining #{session.title}")
+    else
+      redirect_to session_path(session, alert: "Something went wrong!")
+    end
   end
 end
