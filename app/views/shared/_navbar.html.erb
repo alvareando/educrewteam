@@ -5,7 +5,7 @@
     <li><%= link_to root_path, class: "navbar-wagon-brand" do %>
           <%= image_tag "icon.png" %>
         <% end %></li>
-      <li class="left-link"><%= link_to "Become a tutor", "#", class: "navbar-wagon-item navbar-wagon-link" %></li>
+      <li class="left-link"><%= link_to "Become a tutor", become_tutor_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
       <li class="left-link"><%= link_to "How it works", "#", class: "navbar-wagon-item navbar-wagon-link" %></li>
       </ul>
   </div>
@@ -22,10 +22,10 @@
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
-          <%# picture_url = current_user.google_picture_url || current_user.facebook_picture_url %>
-            <%# unless picture_url %>
-              <%# picture_url = 'http://kitt.lewagon.com/placeholder/users/meredaul' %>
-            <%# end %>
+          <% picture_url = current_user.google_picture_url || current_user.facebook_picture_url %>
+            <% unless picture_url %>
+              <% picture_url = 'http://kitt.lewagon.com/placeholder/users/meredaul' %>
+            <% end %>
               <%= image_tag ('avatar.jpeg'), class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
                 <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
                   <li>
@@ -38,6 +38,14 @@
                         <i class="fa fa-lightbulb-o"></i> <%= t(".suggest", default: "Suggest a session") %>
                       <% end %>
                     </li>
+                    <% if current_user.tutor %>
+                      <li>
+                        <%= link_to tutor_dashboard_path do %>
+                          <i class="fa fa-lightbulb-o"></i>
+                          Go to tutor area
+                        <% end %>
+                      </li>
+                    <% end %>
                     <li>
                       <%= link_to destroy_user_session_path, method: :delete do %>
                         <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>

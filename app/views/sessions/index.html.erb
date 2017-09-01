@@ -1,21 +1,29 @@
-
-<% @sessions.each do |session| %>
-<%= session.title %>
-<% end %>
-
-<!-- <div class="card-container"></div>
-  <div class="card">
-    <img src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg" alt="Avatar" style="width:100%">
-    <div class="container">
-      <h4><b>Bob Saget</b></h4>
-      <p>Actor - Full House</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <p>filter bar</p>
     </div>
   </div>
-  <div class="card">
-    <img src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg" alt="Avatar" style="width:100%">
-    <div class="container">
-      <h4><b>Patrick Stewart</b></h4>
-      <p>Bad Azz</p>
+  <div class="row">
+    <% @sessions.each do |session| %>
+      <div class="col-xs-6 col-sm-4 col-md-3">
+        <%= link_to session_path(session), class: "sessions-card-link" do %>
+          <div class="card">
+            <% if session.user.photo %>
+                <% url = session.user.photo.path %>
+              <% else %>
+                <% url = "sample" %>
+              <% end %>
+            <div class="card-img-top" style="background: url(<%= cl_image_path url %>)">
+              <div class="card-description">
+                <p><%= session.description %></p>
+              </div>
+            </div>
+            <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
+            <p class="card-title"><%= session.title %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
-</div> -->
-
+</div>

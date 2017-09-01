@@ -1,5 +1,5 @@
 .footer {
-  position: fixed;
+  overflow: hidden;
   bottom: 0px;
   max-height: 40px;
   width: 100%;
@@ -7,7 +7,6 @@
   justify-content: space-between;
   list-style-type: none;
   background-color: rgb(128,128,128);
-  opacity: 0.7;
   margin: none;
 
 }
