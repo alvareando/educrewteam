@@ -49,6 +49,7 @@ class SessionsController < ApplicationController
   def show
     @session = Session.find(params[:id])
     @user = @session.tutor
+    @chatroom = @session.chatroom
   end
 
   def update
