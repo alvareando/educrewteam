@@ -103,11 +103,13 @@
         </div>
       </div>
       <div class="sticky-container">
-        <div class="duration">
-          <i class="fa fa-hourglass-half" aria-hidden="true"></i> 3 hours
-        </div>
-        <div class="price">
-          <i class="fa fa-money" aria-hidden="true"></i> <%= humanized_money_with_symbol(@session.price) %>
+        <div class="session-flex">
+          <div class="duration">
+            <i class="fa fa-hourglass-half" aria-hidden="true"></i> 3 hours
+          </div>
+          <div class="price" style="padding-top: 0px;, padding left: 3px;"">
+            <i class="fa fa-money" aria-hidden="true"></i> <%= humanized_money_with_symbol(@session.price) %>
+          </div>
 
         </div>
         <div class="join-button-container">
@@ -138,6 +140,7 @@
           </div>
           <% end %>
         </div>
+
       </div>
     </div>
   </div>

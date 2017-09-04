@@ -19,16 +19,17 @@
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
     <% if user_signed_in? %>
+    <ul class="single-dashboard-btn">
+    <li>
+      <%= link_to dashboard_path do  %><%= t(".dashboard", default: "Student Dashboard") %>
+      <% end %>
+    </li>
+      </ul>
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
           <%= image_tag current_user.picture, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
             <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-              <li>
-                <%= link_to dashboard_path do %>
-                  <i class="fa fa-graduation-cap" aria-hidden="true"></i> <%= t(".dashboard", default: "Student Dashboard") %>
-                <% end %>
-              </li>
                 <% if current_user.tutor %>
                   <li>
                     <%= link_to new_session_path do %>
