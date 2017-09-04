@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20170904132708) do
     t.string   "state"
     t.string   "teddy_sku"
     t.integer  "amount_cents",    default: 0,     null: false
-    t.string   "amount_currency", default: "EUR", null: false
+    t.string   "amount_currency", default: "GBP", null: false
     t.json     "payment"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false

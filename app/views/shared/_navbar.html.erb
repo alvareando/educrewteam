@@ -5,8 +5,13 @@
     <li><%= link_to root_path, class: "navbar-wagon-brand" do %>
           <%= image_tag "icon.png" %>
         <% end %></li>
-      <li class="left-link"><%= link_to "Become a tutor", become_tutor_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
+        <% if current_user %>
+    <% if current_user.tutor? %>
       <li class="left-link"><%= link_to "How it works", "#", class: "navbar-wagon-item navbar-wagon-link" %></li>
+    <% else %>
+      <li class="left-link" ><%= link_to "Become a tutor", become_tutor_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
+    <% end %>
+    <% end %>
       </ul>
   </div>
 
