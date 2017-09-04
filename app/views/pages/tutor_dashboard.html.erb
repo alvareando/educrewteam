@@ -1,1 +1,30 @@
-<h1>Tutor Dash</h1>
+
+<div class="container">
+  <div class="dashboard-title">
+    <h1>Tutor Dashboard</h1>
+  </div>
+    <div class="dashboard-left">
+      <div class="upcoming-sessions-title">
+        <h3>Upcoming Sessions</h3>
+      </div>
+      <div class="upcoming-sessions-cards">
+        <div class="row">
+          <% @sessions.each do |session| %>
+          <% if session.tutor == current_user %>
+            <div class="col-xs-6 col-sm-4 col-md-3">
+              <div class="card">
+                <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
+                <div class="card-description">
+                  <p><%= session.description %></p>
+                </div>
+                </div>
+                <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                <p class="card-title"><%= session.title %></p>
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>
