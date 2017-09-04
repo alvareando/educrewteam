@@ -5,11 +5,13 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @sessions = current_user.participating_sessions
+    @ongoing_sessions = current_user.participating_sessions('ongoing')
+    @over_sessions = current_user.participating_sessions('over')
   end
 
   def tutor_dashboard
-    @sessions = Session.all
+    @ongoing_sessions = current_user.tutor_sessions('ongoing')
+    @over_sessions = current_user.tutor_sessions('over')
   end
 
 end

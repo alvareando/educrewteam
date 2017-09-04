@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
   end
 
   def new
-    @session = Session.new()
+    @session = Session.new
   end
 
   def create
@@ -34,6 +34,12 @@ class SessionsController < ApplicationController
   end
 
   def show
+    @session = Session.find(params[:id])
+    @user = @session.tutor
+    @chatroom = @session.chatroom
+  end
+
+  def live
     @session = Session.find(params[:id])
     @user = @session.tutor
     @chatroom = @session.chatroom

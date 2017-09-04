@@ -162,14 +162,14 @@
   display: flex;
 }
 
-.price {
+.session-detail {
   font-size: 16px;
-  padding: 20px;
-}
+  padding: 15px;
+  color: white;
 
-.duration {
-  font-size: 16px;
-  padding: 0 0 0 20px;
+  i {
+    color: white;
+  }
 }
 
 .join-button-container {

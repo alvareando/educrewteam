@@ -3,8 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   has_many :messages, foreign_key: 'sender_id', dependent: :nullify
-  has_many :session_participations
-  # has_many :sessions, through: :session_participations
 
   has_attachment :photo
 
@@ -21,8 +19,30 @@ class User < ApplicationRecord
     self.facebook_picture_url || self.google_picture_url || "http://kitt.lewagon.com/placeholder/users/meredaul"
   end
 
-  def participating_sessions
-    Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id)
+  def participating_sessions(status = nil)
+    case status
+    when 'ongoing'
+      Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id).where('sessions.date > ? OR sessions.date = ? AND sessions.time > ?', Date.today, Date.today, Time.now)
+    when 'over'
+      Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id).where('sessions.date > ? OR sessions.date = ? AND sessions.time > ?', Date.today, Date.today, Time.now)
+    else
+      Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id)
+    end
+  end
+
+  def tutor_sessions(status = nil)
+    case status
+    when 'ongoing'
+      Session.where(tutor_id: id).where('sessions.date > ? OR sessions.date = ? AND sessions.time > ?', Date.today, Date.today, Time.now)
+    when 'over'
+      Session.where(tutor_id: id).where('sessions.date < ? OR sessions.date = ? AND sessions.time < ?', Date.today, Date.today, Time.now)
+    else
+      Session.where(tutor_id: id)
+    end
+  end
+
+  def participating_in?(session)
+    participating_sessions.include?(session)
   end
 
   def self.find_for_facebook_oauth(auth)

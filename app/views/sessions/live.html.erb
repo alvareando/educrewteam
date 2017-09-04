@@ -1,0 +1,57 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-8">
+    <h1>Live for <%= @session.title %></h1>
+      <p>video</p>
+    </div>
+
+    <div class="col-xs-4">
+      <div class="chat-header"><h4>#<%= @chatroom.session.title %></h4></div>
+      <div class="messages">
+        <% @chatroom.messages.each do |message| %>
+          <%= render "messages/message", message: message, user_is_messages_author: message.from?(current_user), c_user: current_user %>
+        <% end %>
+      </div>
+      <div id="create-message">
+        <%= simple_form_for [ @chatroom, Message.new ], remote: true, html: {autocomplete: "off" } do |f| %>
+          <%= f.input :body, label: false %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Resources</h4>
+      <ul>
+        <li><%= link_to "Slides", "#" %></li>
+        <li><%= link_to "Exercises", "#" %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<%= content_for :after_js do %>
+  <script>
+    scrollLastMessageIntoView();
+    console.log('123');
+
+    App['chatroom_<%= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%= @chatroom.id %> }, {
+      received: (data) => {
+        console.log('543221');
+        // if (data.current_user_id !== <%#current_user.id %>) {
+           if (data.c_user !== <%= current_user.id %>) {
+          const messagesContainer = document.querySelector('.messages');
+          messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
+          scrollLastMessageIntoView();
+        }
+      }
+    })
+  </script>
+<% end %>
