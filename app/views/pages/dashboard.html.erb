@@ -1,7 +1,5 @@
 
-<%#= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>
-  <!-- <i class="fa fa-wrench"></i> -->
-<%# end %>
+<!-- THIS IS THE STUDENT DASHBOARD -->
 
 <div class="container">
   <div class="dashboard-title">
@@ -14,18 +12,20 @@
       <div class="upcoming-sessions-cards">
         <div class="row">
           <% @sessions.each do |session| %>
-            <div class="col-xs-6 col-md-4">
-              <%= link_to session_path(session) do %>
-                <div class="card">
-                  <div class="card-img-top" style="background: url('<%= session.tutor.picture %>')">
-                    <div class="card-description">
-                      <p><%= session.description %></p>
+            <% if session.ongoing_session? %>
+              <div class="col-xs-6 col-md-4">
+                <%= link_to session_path(session) do %>
+                  <div class="card">
+                    <div class="card-img-top" style="background: url('<%= session.tutor.picture %>')">
+                      <div class="card-description">
+                        <p><%= session.description %></p>
+                      </div>
                     </div>
+                    <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                    <p class="card-title"><%= session.title %></p>
                   </div>
-                  <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
-                  <p class="card-title"><%= session.title %></p>
                 </div>
-              </div>
+              <% end %>
             <% end %>
           <% end %>
         </div>
@@ -40,6 +40,9 @@
 
 
 <!-- Modal -->
+<%#= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>
+  <!-- <i class="fa fa-wrench"></i> -->
+<%# end %>
 <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
