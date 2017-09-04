@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170901151252) do
+ActiveRecord::Schema.define(version: 20170904132708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20170901151252) do
     t.index ["sender_id"], name: "index_messages_on_sender_id", using: :btree
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string   "state"
+    t.string   "teddy_sku"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "EUR", null: false
+    t.json     "payment"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
   create_table "session_participations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -66,12 +76,10 @@ ActiveRecord::Schema.define(version: 20170901151252) do
     t.string   "title"
     t.text     "description"
     t.integer  "price"
-    t.boolean  "suggestion",         default: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "user_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "price_cents",        default: 0, null: false
     t.index ["tutor_id"], name: "index_sessions_on_tutor_id", using: :btree
-    t.index ["user_id"], name: "index_sessions_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -105,6 +113,5 @@ ActiveRecord::Schema.define(version: 20170901151252) do
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "session_participations", "sessions"
-  add_foreign_key "sessions", "users"
   add_foreign_key "sessions", "users", column: "tutor_id"
 end

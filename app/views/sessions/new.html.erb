@@ -9,7 +9,7 @@
         <%= f.input :subject  %>
         <%= f.input :time, default: Time.parse('9:00'), minute_step: 15, value: "now" %>
         <%= f.input :date, selected: Date.today, start_year: Date.today.year, end_year: Date.today.year + 1 %>
-        <%= f.input :price  %>
+        <%= f.input :price %>
         <%= f.input :description, as: :text, input_html: { rows: "4" } %>
         <%= f.button :submit, "Add session", class: "add-session-btn sign-up-btn"  %>
       <% end %>

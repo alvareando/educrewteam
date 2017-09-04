@@ -11,5 +11,6 @@ class PagesController < ApplicationController
   def tutor_dashboard
     @sessions = Session.all
   end
+
 end
 # current_user.sessions.where(session.session_participations = current_user.session_participations.id)

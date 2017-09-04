@@ -107,7 +107,8 @@
           <i class="fa fa-hourglass-half" aria-hidden="true"></i> 3 hours
         </div>
         <div class="price">
-          <i class="fa fa-money" aria-hidden="true"></i> £<%= @session.price %>
+          <i class="fa fa-money" aria-hidden="true"></i> <%= humanized_money_with_symbol(@session.price) %>
+
         </div>
         <div class="join-button-container">
           <%= link_to "Book your seat", session_session_participations_path(@session), method: :post, class: "join-button" %>
@@ -123,6 +124,7 @@
               </div>
             </div>
           </div>
+          <% if current_user.participating_sessions.include?(@session) %>
           <div class="chat-header"><h4>#<%= @chatroom.session.title %></h4></div>
           <div class="messages">
             <% @chatroom.messages.each do |message| %>
@@ -134,12 +136,12 @@
               <%= f.input :body, label: false %>
             <% end %>
           </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <%= content_for :after_js do %>
   <script>
     scrollLastMessageIntoView();
