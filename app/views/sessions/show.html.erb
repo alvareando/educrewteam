@@ -103,17 +103,21 @@
         </div>
       </div>
       <div class="sticky-container">
-        <div class="session-flex">
-          <div class="duration">
-            <i class="fa fa-hourglass-half" aria-hidden="true"></i> 3 hours
-          </div>
-          <div class="price" style="padding-top: 0px;, padding left: 3px;"">
-            <i class="fa fa-money" aria-hidden="true"></i> <%= humanized_money_with_symbol(@session.price) %>
-          </div>
-
+        <div class="session-detail">
+          <i class="fa fa-hourglass-half"></i> 3 hours
+        </div>
+        <div class="session-detail">
+          <i class="fa fa-money"></i> <%= humanized_money_with_symbol(@session.price) %>
+        </div>
+        <div class="session-detail">
+          <i class="fa fa-clock-o"></i> <%= @session.time.strftime("%H:%M") %> - <%= @session.date.strftime("%A, %e %B") %>
         </div>
         <div class="join-button-container">
-          <%= link_to "Book your seat", session_session_participations_path(@session), method: :post, class: "join-button" %>
+          <% if current_user.participating_in?(@session) %>
+            <%= link_to "Go to live", session_live_path(@session), class: "join-button" %>
+          <% else %>
+            <%= link_to "Book your seat", session_session_participations_path(@session), method: :post, class: "join-button" %>
+          <% end %>
         </div>
           <div class="joined-title">
             Already joined:
@@ -126,42 +130,9 @@
               </div>
             </div>
           </div>
-          <% if current_user.participating_sessions.include?(@session) %>
-          <div class="chat-header"><h4>#<%= @chatroom.session.title %></h4></div>
-          <div class="messages">
-            <% @chatroom.messages.each do |message| %>
-              <%= render "messages/message", message: message, user_is_messages_author: message.from?(current_user), c_user: current_user %>
-            <% end %>
-          </div>
-          <div id="create-message">
-            <%= simple_form_for [ @chatroom, Message.new ], remote: true, html: {autocomplete: "off" } do |f| %>
-              <%= f.input :body, label: false %>
-            <% end %>
-          </div>
-          <% end %>
         </div>
 
       </div>
     </div>
   </div>
 </div>
-<%= content_for :after_js do %>
-  <script>
-    scrollLastMessageIntoView();
-    console.log('123');
-
-    App['chatroom_<%= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%= @chatroom.id %> }, {
-      received: (data) => {
-        console.log('543221');
-        // if (data.current_user_id !== <%#current_user.id %>) {
-           if (data.c_user !== <%= current_user.id %>) {
-          const messagesContainer = document.querySelector('.messages');
-          messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
-          scrollLastMessageIntoView();
-        }
-      }
-    })
-  </script>
-<% end %>
-
-

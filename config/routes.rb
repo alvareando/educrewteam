@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :session_participations, only: [:create]
     resources :chatrooms, only: [:create]
   end
+  get 'sessions/:id/live', to: 'sessions#live', as: 'session_live'
 
   resources :chatrooms, only: [:show] do
     resources :messages, only: [:index, :create, :destroy]
@@ -26,5 +27,4 @@ Rails.application.routes.draw do
 
   mount Attachinary::Engine => "/attachinary"
   mount ActionCable.server => "/cable"
-
 end

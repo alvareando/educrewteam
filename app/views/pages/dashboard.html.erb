@@ -1,6 +1,3 @@
-
-<!-- THIS IS THE STUDENT DASHBOARD -->
-
 <div class="container">
   <div class="dashboard-title">
     <h1>Student Dashboard</h1>
@@ -11,7 +8,7 @@
       </div>
       <div class="upcoming-sessions-cards">
         <div class="row">
-          <% @sessions.each do |session| %>
+          <% @ongoing_sessions.each do |session| %>
             <% if session.ongoing_session? %>
               <div class="col-xs-6 col-md-4">
                 <%= link_to session_path(session) do %>
@@ -32,11 +29,6 @@
       </div>
   </div>
 </div>
-
-
-
-
-
 
 
 <!-- Modal -->

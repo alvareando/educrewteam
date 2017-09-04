@@ -6,10 +6,10 @@
           <div class="card">
             <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
               <div class="card-description">
-                <p><%= session.description %></p>
+                <p><%= session.time.strftime("%H:%M") %> - <%= session.date.strftime("%A, %e %B") %></p>
               </div>
             </div>
-            <span class="card-author-price"><%= session.tutor.name.upcase %> - Amount: <%= humanized_money_with_symbol(session.price) %></span>
+            <span class="card-author-price"><%= session.tutor.name.upcase %> - <%= humanized_money_with_symbol(session.price) %></span>
             <p class="card-title"><%= session.title %></p>
           </div>
         </div>
