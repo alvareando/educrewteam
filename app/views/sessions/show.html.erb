@@ -95,7 +95,7 @@
     <div class="sticky-container">
       <div class="taughtby-and-avatar flex">
         <div class="taught-by">
-          Taught by:
+          <p>Taught by: <%=   %></p>
         </div>
         <div class="teacher-id">
           <%= image_tag @session.tutor.picture, class: "placeholder-big-avatar" %>
@@ -158,5 +158,3 @@
     })
   </script>
 <% end %>
-
-

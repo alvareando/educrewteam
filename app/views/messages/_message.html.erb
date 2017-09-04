@@ -1,4 +1,8 @@
 <div class="message <%= user_is_messages_author ? "right" : "" %> ">
   <%# image_tag message.sender.avatar_url, class: "avatar" %>
-  <div class="message-content"><%= message.body %> <%= message.sender.first_name %></div>
+  <div class="message-sender">
+    <%= image_tag message.sender.picture, class: "avatar" %>
+    <p><%= message.sender.first_name %></p>
+  </div>
+  <div class="message-content"><%= message.body %> </div>
 </div>
