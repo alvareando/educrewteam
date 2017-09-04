@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-
   def index
     if params[:subject].present? && params[:university].present?
       @sessions = Session.where(subject: params[:subject], university: params[:university])
@@ -21,10 +20,8 @@ class SessionsController < ApplicationController
     @session = Session.new(session_params)
     if current_user.tutor?
       @session.tutor = current_user
-      @session.update(suggestion: false)
-      @session.user = nil
       if @session.save
-        new_chatroom = Chatroom.new()
+        new_chatroom = Chatroom.new
         new_chatroom.session = @session
         new_chatroom.save
         redirect_to chatroom_path(new_chatroom)
@@ -32,17 +29,7 @@ class SessionsController < ApplicationController
         render :new
       end
     else
-      @session.tutor = nil
-      @session.user = current_user
-      @session.update(suggestion: true)
-      if @session.save
-        new_chatroom = Chatroom.new()
-        new_chatroom.session = @session
-        new_chatroom.save
-        redirect_to chatroom_path(new_chatroom)
-      else
-        render :new
-      end
+      redirect_to root_home, alert: "You can't do this!"
     end
   end
 
@@ -59,8 +46,9 @@ class SessionsController < ApplicationController
   end
 
   private
+
   def session_params
-    params.require(:session).permit(:title, :description, :date, :time, :price, :subject, :university, :suggestion)
+    params.require(:session).permit(:title, :description, :date, :time, :price, :subject, :university)
   end
 
 end

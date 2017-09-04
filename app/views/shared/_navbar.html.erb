@@ -24,12 +24,12 @@
                   <i class="fa fa-graduation-cap" aria-hidden="true"></i> <%= t(".dashboard", default: "Student Dashboard") %>
                 <% end %>
               </li>
-                <li>
-                  <%= link_to new_session_path do %>
-                    <i class="fa fa-lightbulb-o"></i> <%= t(".suggest", default: "Suggest a session") %>
-                  <% end %>
-                </li>
                 <% if current_user.tutor %>
+                  <li>
+                    <%= link_to new_session_path do %>
+                      <i class="fa fa-lightbulb-o"></i> Create a session
+                    <% end %>
+                  </li>
                   <li>
                     <%= link_to tutor_dashboard_path do %>
                       <i class="fa fa-id-card-o"></i>

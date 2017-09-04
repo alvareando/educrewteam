@@ -31,6 +31,7 @@ gem 'pundit'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'money-rails'
+gem 'stripe'
 
 group :development, :test do
   gem 'pry-byebug'

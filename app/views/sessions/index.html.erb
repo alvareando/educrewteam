@@ -1,20 +1,18 @@
 <div class="container padded">
   <div class="row">
     <% @sessions.each do |session| %>
-      <% unless session.suggestion %>
-        <div class="col-xs-6 col-sm-4 col-md-3">
-          <%= link_to session_path(session), class: "sessions-card-link" do %>
-            <div class="card">
-              <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
-                <div class="card-description">
-                  <p><%= session.description %></p>
-                </div>
+      <div class="col-xs-6 col-sm-4 col-md-3">
+        <%= link_to session_path(session), class: "sessions-card-link" do %>
+          <div class="card">
+            <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
+              <div class="card-description">
+                <p><%= session.description %></p>
               </div>
-              <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
-              <p class="card-title"><%= session.title %></p>
             </div>
+            <span class="card-author-price"><%= session.tutor.name.upcase %> - Amount: <%= humanized_money_with_symbol(session.price) %></span>
+            <p class="card-title"><%= session.title %></p>
           </div>
-        <% end %>
+        </div>
       <% end %>
     <% end %>
   </div>

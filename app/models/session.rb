@@ -1,8 +1,9 @@
 class Session < ApplicationRecord
-  belongs_to :tutor, foreign_key: "tutor_id", class_name: "User", optional: true
-  belongs_to :user, optional: true
+  belongs_to :tutor, foreign_key: "tutor_id", class_name: "User"
 
-  has_one :chatroom
+  monetize :price_cents
+
+  has_one :chatroom, dependent: :destroy
   has_many :session_participations
 
   validates :subject, presence: true
