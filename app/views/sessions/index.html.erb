@@ -3,14 +3,34 @@
     <% @sessions.each do |session| %>
       <div class="col-xs-6 col-sm-4 col-md-3">
         <%= link_to session_path(session), class: "sessions-card-link" do %>
-          <div class="card">
-            <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
-              <div class="card-description">
-                <p><%= session.time.strftime("%H:%M") %> - <%= session.date.strftime("%A, %e %B") %></p>
-              </div>
+          <div class="card" style= "background: linear-gradient(to right,<%= session.get_color(session.subject) %>)">
+            <div class="card-subject">
+              <%= session.subject %>
             </div>
-            <span class="card-author-price"><%= session.tutor.name.upcase %> - <%= humanized_money_with_symbol(session.price) %></span>
-            <p class="card-title"><%= session.title %></p>
+            <div class="card-avatar">
+              <%= image_tag session.tutor.picture, class: "small-card-avatar" %>
+            </div>
+              <div class="wrapper">
+                <div class="main-title">
+                  <div class="card-title">
+                    <%= session.title %>
+                  </div>
+                  <div class="card-university">
+                    <%= session.university %>
+                  </div>
+                  <div class="card-date">
+                    <i class="fa fa-clock-o"> </i><%= session.time.strftime("%H:%M") %> - <%= session.date.strftime("%A, %e %B") %>
+                  </div>
+                </div>
+                <div class="card-details">
+                  <div class="card-price">
+                    <i class="fa fa-money"> </i><%= session.price %>
+                  </div>
+                  <div class="card-duration">
+                    <i class="fa fa-hourglass-half"></i> 3 hours
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
       <% end %>

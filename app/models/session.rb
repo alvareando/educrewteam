@@ -7,6 +7,16 @@ class Session < ApplicationRecord
   has_many :session_participations
 
   validates :subject, presence: true
+
+  CATEGORIES = ["Finance", "Economics"]
+
+
+  def get_color(subject)
+    case subject
+    when "Finance"
+      return "#000428, #004e92"
+    when "Economics"
+      return "TODO"
+    end
+  end
 end
-
-

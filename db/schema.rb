@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170904132708) do
+ActiveRecord::Schema.define(version: 20170905105520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,12 +47,12 @@ ActiveRecord::Schema.define(version: 20170904132708) do
     t.index ["sender_id"], name: "index_messages_on_sender_id", using: :btree
   end
 
-  create_table "orders", force: :cascade do |t|
+  create_table "payments", force: :cascade do |t|
     t.string   "state"
-    t.string   "teddy_sku"
+    t.string   "session_uid"
     t.integer  "amount_cents",    default: 0,     null: false
     t.string   "amount_currency", default: "GBP", null: false
-    t.json     "payment"
+    t.jsonb    "payment"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end
@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 20170904132708) do
     t.string   "university"
     t.string   "title"
     t.text     "description"
-    t.integer  "price"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.integer  "price_cents",        default: 0, null: false

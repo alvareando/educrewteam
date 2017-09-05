@@ -24,7 +24,7 @@ class User < ApplicationRecord
     when 'ongoing'
       Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id).where('sessions.date > ? OR sessions.date = ? AND sessions.time > ?', Date.today, Date.today, Time.now)
     when 'over'
-      Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id).where('sessions.date > ? OR sessions.date = ? AND sessions.time > ?', Date.today, Date.today, Time.now)
+      Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id).where('sessions.date < ? OR sessions.date = ? AND sessions.time < ?', Date.today, Date.today, Time.now)
     else
       Session.joins('JOIN session_participations ON session_participations.session_id = sessions.id').joins('JOIN users ON users.id = session_participations.student_id').where('session_participations.student_id = ?', self.id)
     end

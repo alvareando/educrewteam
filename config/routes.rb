@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/tutor_dashboard", to: "pages#tutor_dashboard", as: "tutor_dashboard"
 
   resources :sessions, only: [:index, :show, :new, :create] do
+    resources :payments, only: [:new, :create]
     resources :session_participations, only: [:create]
     resources :chatrooms, only: [:create]
   end
@@ -19,10 +20,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:update]
 
-  resources :orders, only: [:show, :create]
-
   get "/become-a-tutor/", to: "users#become_tutor", as: "become_tutor"
-
   patch "/become-a-tutor/", to: "users#update_to_tutor", as: "update_to_tutor"
 
   mount Attachinary::Engine => "/attachinary"
