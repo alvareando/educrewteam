@@ -1,35 +1,68 @@
+
 <div class="container">
   <div class="dashboard-title">
-    <h1>Student Dashboard</h1>
+    <h1 class="text-center">Student Dashboard</h1>
   </div>
-    <div class="dashboard-left">
-      <div class="upcoming-sessions-title">
-        <h3>Upcoming Sessions</h3>
-      </div>
-      <div class="upcoming-sessions-cards">
+  <div class="dashboard-info"></div>
+    <div class="tab">
+      <ul class="nav nav-tabs sessions-tabs" role="tablist">
+        <li role="presentation" class="active session-tab"><a href="#upcoming-sessions" aria-controls="upcoming-sessions" role="tab" data-toggle="tab">Upcoming sessions (<%= @ongoing_sessions.count %>)</a></li>
+        <li role="presentation" class="session-tab"><a href="#past-sessions" aria-controls="past-sessions" role="tab" data-toggle="tab">Past Sessions (<%= @over_sessions.count %>)</a></li>
+    </div>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="upcoming-sessions">
         <div class="row">
-          <% @ongoing_sessions.each do |session| %>
-            <% if session.ongoing_session? %>
-              <div class="col-xs-6 col-md-4">
+          <% if @ongoing_sessions.empty? %>
+            <div class="empty-message">
+              <em>No upcoming sessions yet!</em>
+            </div>
+          <% else %>
+            <% @ongoing_sessions.each do |session| %>
+              <div class="col-xs-6 col-sm-4 col-md-3">
                 <%= link_to session_path(session) do %>
                   <div class="card">
-                    <div class="card-img-top" style="background: url('<%= session.tutor.picture %>')">
+                    <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
+                    <div class="card-description">
+                      <p><%= session.description %></p>
+                    </div>
+                    </div>
+                    <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                    <p class="card-title"><%= session.title %></p>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="past-sessions">
+        <div class="row">
+          <% if @over_sessions.empty? %>
+            <div class="empty-message">
+              <em>No past sessions yet!</em>
+            </div>
+          <% else %>
+            <% @over_sessions.each do |session| %>
+              <div class="col-xs-6 col-sm-4 col-md-3">
+                <%= link_to session_path(session) do %>
+                  <div class="card">
+                    <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
                       <div class="card-description">
                         <p><%= session.description %></p>
                       </div>
                     </div>
                     <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
-                    <p class="card-title"><%= session.title %></p>
+                    <p class="card-title"><%= session.title %></p> <button type="button" class="btn btn-link">Review this session</button>
                   </div>
-                </div>
-              <% end %>
+                <% end %>
+              </div>
             <% end %>
           <% end %>
         </div>
       </div>
+    </div>
   </div>
 </div>
-
 
 <!-- Modal -->
 <%#= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>

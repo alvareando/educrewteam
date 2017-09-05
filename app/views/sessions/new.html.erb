@@ -6,7 +6,7 @@
       <%= simple_form_for @session do |f| %>
         <%= f.input :title, class: "suggest-input" %>
         <%= f.input :university  %>
-        <%= f.input :subject  %>
+        <%= f.input :subject, collection: Session::CATEGORIES %>
         <%= f.input :time, default: Time.parse('9:00'), minute_step: 15, value: "now" %>
         <%= f.input :date, selected: Date.today, start_year: Date.today.year, end_year: Date.today.year + 1 %>
         <%= f.input :price %>

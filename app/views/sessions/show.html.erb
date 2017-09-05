@@ -113,10 +113,20 @@
           <i class="fa fa-clock-o"></i> <%= @session.time.strftime("%H:%M") %> - <%= @session.date.strftime("%A, %e %B") %>
         </div>
         <div class="join-button-container">
-          <% if current_user.participating_in?(@session) %>
-            <%= link_to "Go to live", session_live_path(@session), class: "join-button" %>
-          <% else %>
-            <%= link_to "Book your seat", session_session_participations_path(@session), method: :post, class: "join-button" %>
+          <%= form_tag session_payments_path(@session) do %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+              data-name="Session payment"
+              data-email="<%= current_user.email %>"
+              data-description="<%= @session.title %>"
+              data-amount="<%= @session.price_cents %>"
+              data-currency="<%= @session.price.currency %>">
+            </script>
+            <% if current_user.participating_in?(@session) %>
+              <%= link_to "Go to live", session_live_path(@session), class: "join-button" %>
+            <% else %>
+              <%= submit_tag "Book your seat", class: "join-button" %>
+            <% end %>
           <% end %>
         </div>
           <div class="joined-title">
