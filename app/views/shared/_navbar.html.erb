@@ -1,30 +1,34 @@
 <div class="navbar-wagon">
   <div class="keep-left">
   <!-- Logo -->
-  <ul>
-    <li><%= link_to root_path, class: "navbar-wagon-brand" do %>
-          <%= image_tag "icon.png" %>
-        <% end %></li>
-        <% if current_user %>
-    <% if current_user.tutor? %>
-      <li class="left-link"><%= link_to "How it works", "#", class: "navbar-wagon-item navbar-wagon-link" %></li>
-    <% else %>
-      <li class="left-link" ><%= link_to "Become a tutor", become_tutor_path, class: "navbar-wagon-item navbar-wagon-link" %></li>
-    <% end %>
-    <% end %>
-      </ul>
+    <ul>
+      <li><%= link_to root_path, class: "navbar-wagon-brand" do %>
+        <%= image_tag "icon.png" %>
+        <% end %>
+      </li>
+      <li class="left-link"><%= link_to "How it works", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+      </li>
+      <% if current_user && user_signed_in? && current_user.tutor %>
+        <li class="single-dashboard-btn">
+          <%= link_to dashboard_path do  %><%= t(".dashboard", default: "Student Dashboard") %>
+            <% end %>
+        </li>
+      <% elsif current_user && user_signed_in? && %>
+        <li class="left-link" ><%= link_to "Become a tutor", become_tutor_path, class: "navbar-wagon-item navbar-wagon-link" %>
+        </li>
+        <li class="single-dashboard-btn">
+          <%= link_to dashboard_path do  %><%= t(".dashboard", default: "Student Dashboard") %>
+            <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
 
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
     <% if user_signed_in? %>
-    <ul class="single-dashboard-btn">
-    <li>
-      <%= link_to dashboard_path do  %><%= t(".dashboard", default: "Student Dashboard") %>
-      <% end %>
-    </li>
-      </ul>
+
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
