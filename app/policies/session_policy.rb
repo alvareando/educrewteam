@@ -11,5 +11,6 @@ class SessionPolicy < ApplicationPolicy
 
   def live?
     user.paid_for? record
+    user == record.tutor
   end
 end
