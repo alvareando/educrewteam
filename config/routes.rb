@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :payments, only: [:new, :create]
     resources :session_participations, only: [:create]
     resources :chatrooms, only: [:create]
+    resources :reviews, only: [:create]
   end
   get 'sessions/:id/live', to: 'sessions#live', as: 'session_live'
 

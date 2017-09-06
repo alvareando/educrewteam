@@ -37,6 +37,7 @@ class SessionsController < ApplicationController
     @session = Session.find(params[:id])
     @user = @session.tutor
     @chatroom = @session.chatroom
+    @review = Review.new
   end
 
   def live

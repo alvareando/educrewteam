@@ -5,6 +5,7 @@ class Session < ApplicationRecord
 
   has_one :chatroom, dependent: :destroy
   has_many :session_participations
+  has_many :reviews, dependent: :destroy
 
   validates :subject, presence: true
 
