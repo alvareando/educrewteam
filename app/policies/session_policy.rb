@@ -10,7 +10,6 @@ class SessionPolicy < ApplicationPolicy
   end
 
   def live?
-    user.paid_for? record
-    user == record.tutor
+    user.paid_for?(record) || (user == record.tutor)
   end
 end
