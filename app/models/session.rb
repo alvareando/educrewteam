@@ -8,15 +8,25 @@ class Session < ApplicationRecord
 
   validates :subject, presence: true
 
-  CATEGORIES = ["Finance", "Economics"]
+  CATEGORIES = ["Finance", "Economics", "Mathematics", "Computer Science", "Medicine", "Politics"]
 
 
   def get_color(subject)
     case subject
     when "Finance"
       return "#000428, #004e92"
+    when "Mathematics"
+      return "#DBE6F6, #C5796D"
     when "Economics"
-      return "TODO"
+      return "#ff9966, #ff5e62"
+    when "Computer Science"
+      return "#000000, #434343"
+    when "Medicine"
+      return "#f85032, #e73827"
+    when "Politics"
+      return "#2196f3, #f44336"
+    else
+      return "#BD7356, #E0C2BA"
     end
   end
 end
