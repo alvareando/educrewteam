@@ -4,6 +4,10 @@
     <div class="col-xs-8">
     <h1>Live for <%= @session.title %></h1>
       <p>video</p>
+      <div id="video"></div>
+      <div id="connection_button" class="btn btn-success"></div>
+      <div id="current_user_id" class="btn btn-primary"><%= current_user.email %></div>
+      <div id="tutor_session" class="btn btn-primary"><%= @tutor %></div>
     </div>
 
     <div class="col-xs-4">
@@ -53,5 +57,58 @@
         }
       }
     })
+  </script>
+
+
+  <script>
+    function trackAdded(div, identity, track) {
+      div.appendChild(track.attach());
+    }
+    function trackRemoved(track) {
+      track.detach().forEach(element => element.remove());
+    }
+
+    function participantConnected(participant) {
+      console.log('Participant "%s" connected', participant.identity);
+
+      const tutorVideo = document.getElementById('video');
+
+      participant.on('trackAdded', track => trackAdded(tutorVideo, participant.identity, track));
+      participant.tracks.forEach(track => trackAdded(tutorVideo, participant.identity, track));
+      participant.on('trackRemoved', trackRemoved);
+    }
+    function participantDisconnected(participant) {
+      console.log('Participant "%s" disconnected', participant.identity);
+
+      participant.tracks.forEach(trackRemoved);
+      // document.getElementById(participant.sid).remove();
+    }
+
+
+    const streaming = () => {
+
+      const current_user = document.getElementById('current_user_id').innerHTML;
+      const session_tutor = document.getElementById('tutor_session').innerHTML;
+
+      if (current_user === session_tutor){
+        console.log('this is a match ! You are the tutor of this session');
+      }else{
+        console.log('You are a student');
+      };
+
+      Twilio.Video.connect('<%= @token.to_jwt %>', { audio: true, name: 'alex-room', video: { width: 640 }}).then(room => {
+        console.log('Connected to Room "%s"', room.name);
+
+        room.participants.forEach(participantConnected);
+        room.on('participantConnected', participantConnected);
+        room.on('participantDisconnected', participantDisconnected);
+        room.once('disconnected', error => room.participants.forEach(participantDisconnected));
+      });
+    }
+
+    const bouton = document.getElementById('connection_button');
+    bouton.addEventListener('click', streaming );
+
+
   </script>
 <% end %>

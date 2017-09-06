@@ -1,0 +1,136 @@
+
+<!-- Create a Room -->
+
+## TOKEN = token defined in yml file ?
+## import jquery ?? (use "on")
+## nom de la room: 'the'
+## pourquoi pas de new ici ?? et apres connect
+
+
+Twilio.Video.connect('$TOKEN', {name:'my-new-room'}).then(function(room) {
+  console.log('Successfully joined a Room: ', room);
+  room.on('participantConnected', function(participant) {
+    console.log('A remote Participant connected: ', participant);
+  })
+}, function(error) {
+    console.error('Unable to connect to Room: ' +  error.message);
+});
+
+
+<!-- Join a room -->
+
+## bah voila, c'est la meme chose que creation .. j'ai du mal comprendre
+
+
+Twilio.Video.connect('$TOKEN', {name:'existing-room'}).then(function(room) {
+  console.log('Successfully joined a Room: ', room);
+  room.on('participantConnected', function(participant) {
+    console.log('A remote Participant connected: ', participant);
+  })
+}, function(error) {
+    console.error('Unable to connect to Room: ' +  error.message);
+});
+
+
+<!-- Setup local media -->
+
+
+const {
+  createLocalTracks,
+  createLocalAudioTrack,
+  createLocalVideoTrack,
+} = require('twilio-video');
+
+let localTracks;
+
+// Create default local audio and video tracks
+createLocalTracks().then(function(localTracks) {
+  console.log('Got default audio and video tracks:', localTracks);
+});
+
+// Create default local track of a particular kind
+createLocalAudioTrack().then(function(audioTrack) {
+  console.log('Got default local audio track:', audioTrack);
+});
+
+createLocalVideoTrack().then(function(videoTrack) {
+  console.log('Got default local video track:', videoTrack);
+});
+
+
+<!-- Specify constraints -->
+
+
+const { connect, createLocalTracks } = require('twilio-video');
+
+// Option 1
+createLocalTracks({
+  audio: true,
+  video: { width: 640 }
+}).then(localTracks => {
+  return connect('$TOKEN', {
+    name: 'my-room-name',
+    tracks: localTracks
+  });
+}).then(room => {
+  console.log('Connected to Room:', room.name);
+});
+
+// Option 2
+connect('$TOKEN', {
+  audio: true,
+  name: 'my-room-name',
+  video: { width: 640 }
+}).then(room => {
+  console.log('Connected to Room:', room.name);
+});
+
+
+<!-- Handle participants events -->
+
+
+room.on('participantConnected', function(participant) {
+  console.log('Participant connected: ' + participant.identity);
+});
+
+room.on('participantDisconnected', function(participant) {
+  console.log('Participant disconnected: ' + participant.identity);
+
+
+<!-- Display participants video  -->
+
+
+room.on('participantConnected', function(participant) {
+  console.log("Participant '" +  participant.identity  + "' connected");
+
+  participant.tracks.forEach(track => {
+    document.getElementById('remote-media-div').appendChild(track.attach());
+  });
+});
+
+
+<!-- Display a camero preview -->
+
+
+const { createLocalVideoTrack } = require('twilio-video');
+
+createLocalVideoTrack().then(track => {
+  var localMediaContainer = document.getElementById('local-media-ctr');
+  localMediaContainer.appendChild(track.attach());
+});
+
+
+
+<!-- Disconnect from a room -->
+
+
+room.on('disconnected', room => {
+  // Detach the local media elements
+  room.localParticipant.tracks.forEach(track => {
+    var attachedElements = track.detach();
+    attachedElements.forEach(element => element.remove());
+  });
+});
+
+// To disconnect from a Room
+room.disconnect();
