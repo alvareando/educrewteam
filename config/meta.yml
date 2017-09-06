@@ -1,0 +1,5 @@
+meta_product_name: "Educrew"
+meta_title: "Educrew - Study smarter, not harder"
+meta_description: "Educrew is a tutoring web application, built by students, for students"
+meta_image: "cover-two.png"                       # should exist in `app/assets/images/`
+twitter_account: "@product_twitter_account"   # required for Twitter Cards
