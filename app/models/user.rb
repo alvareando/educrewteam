@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   has_many :messages, foreign_key: 'sender_id', dependent: :nullify
+  has_many :reviews
 
   has_attachment :photo
 
