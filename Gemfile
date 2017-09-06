@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.3.4'
 
+
+gem 'sprockets', '>= 3.0.0'
+gem 'sprockets-es6'
 gem 'omniauth-google-oauth2'
 
 gem 'cloudinary', '1.1.7'
@@ -14,7 +17,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'pg'
 gem 'puma'
 gem 'rails', '5.0.5'
-gem 'redis'
+gem 'redis', '< 4.0.0'
 
 gem 'autoprefixer-rails'
 gem 'coffee-rails'
@@ -27,6 +30,9 @@ gem 'uglifier'
 gem 'pundit'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
+gem 'money-rails'
+gem 'stripe'
+gem 'pundit'
 
 group :development, :test do
   gem 'pry-byebug'

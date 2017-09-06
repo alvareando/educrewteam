@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-
   def index
     if params[:subject].present? && params[:university].present?
       @sessions = Session.where(subject: params[:subject], university: params[:university])
@@ -14,41 +13,36 @@ class SessionsController < ApplicationController
   end
 
   def new
-    @session = Session.new()
+    @session = Session.new
   end
 
   def create
-    new_session = Session.new(session_params)
+    @session = Session.new(session_params)
     if current_user.tutor?
-      new_session.tutor = current_user
-      new_session.user = nil
-      if new_session.save
-        new_chatroom = Chatroom.new()
-        new_chatroom.session = new_session
+      @session.tutor = current_user
+      if @session.save
+        new_chatroom = Chatroom.new
+        new_chatroom.session = @session
         new_chatroom.save
         redirect_to chatroom_path(new_chatroom)
       else
-        @session = Session.new()
-        redirect_to :back
+        render :new
       end
     else
-      new_session.tutor = nil
-      new_session.user = current_user
-      new_session.update(suggestion: true)
-      if new_session.save
-        new_chatroom = Chatroom.new()
-        new_chatroom.session = new_session
-        new_chatroom.save
-        redirect_to chatroom_path(new_chatroom)
-      else
-        @session = Session.new()
-        redirect_to :back
-      end
+      redirect_to root_home, alert: "You can't do this!"
     end
   end
 
   def show
     @session = Session.find(params[:id])
+    @user = @session.tutor
+    @chatroom = @session.chatroom
+  end
+
+  def live
+    @session = Session.find(params[:id])
+    @user = @session.tutor
+    @chatroom = @session.chatroom
   end
 
   def update
@@ -58,8 +52,9 @@ class SessionsController < ApplicationController
   end
 
   private
+
   def session_params
-    params.require(:session).permit(:title, :description, :date, :time, :price, :subject, :university, :suggestion)
+    params.require(:session).permit(:title, :description, :date, :time, :price, :subject, :university)
   end
 
 end

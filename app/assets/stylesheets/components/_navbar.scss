@@ -104,3 +104,24 @@
   margin-top: 12px;
   padding: 0px 25px;
 }
+
+.single-dashboard-btn a:hover{
+  text-decoration:none;
+  color: #da552f;
+}
+
+.single-dashboard-btn{
+  color: #da552f;
+  list-style-type: none;
+  text-decoration:none;
+  text-align: center;
+  padding-top: 16px;
+    padding-left: 31px;
+  font-size:14px
+}
+
+
+.single-dashboard-btn a{
+  text-decoration: none !important;
+    color: #777;
+}

@@ -4,10 +4,10 @@
       <p>Group tutoring sessions suited to your course</p>
   </div>
   <div class="home-search-form">
-    <%= form_tag sessions_path, method: 'get', class: "home-search-form-two" do %>
+    <%= form_tag sessions_path, method: 'get', enforce_utf8: false, class: "home-search-form-two" do %>
       <%= text_field_tag :subject, "", placeholder: 'Subject', class: "home-search-btn home-subject" %>
       <%= text_field_tag :university, "", placeholder: 'University', class: "home-search-btn home-university" %>
-      <%= submit_tag "Find a session", class: "home-submit-btn btn" %>
+      <%= submit_tag "Find a session", class: "home-submit-btn btn", name: nil %>
       <% end %>
   </div>
 </div>

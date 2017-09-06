@@ -3,3 +3,12 @@
 // @import "dashboard";
 // @import "profile";
 // @import "map";
+
+
+.page-content {
+  min-height: calc(100vh - 70px - 40px);
+}
+
+.padded {
+  padding: 40px 0;
+}

@@ -1,62 +1,84 @@
 
-<%#= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>
-  <!-- <i class="fa fa-wrench"></i> -->
-<%# end %>
-
 <div class="container">
   <div class="dashboard-title">
-    <h2>Student Dashboard</h2>
+    <h1 class="text-center">Student Dashboard</h1>
   </div>
-    <div class="dashboard-left">
-      <div class="upcoming-sessions-title">
-        <h1>Upcoming Sessions</h1>
-      </div>
-      <div class="upcoming-sessions-cards">
+  <div class="dashboard-info"></div>
+    <div class="tab">
+      <ul class="nav nav-tabs sessions-tabs" role="tablist">
+        <li role="presentation" class="active session-tab"><a href="#upcoming-sessions" aria-controls="upcoming-sessions" role="tab" data-toggle="tab">Upcoming sessions (<%= @ongoing_sessions.count %>)</a></li>
+        <li role="presentation" class="session-tab"><a href="#past-sessions" aria-controls="past-sessions" role="tab" data-toggle="tab">Past Sessions (<%= @over_sessions.count %>)</a></li>
+    </div>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="upcoming-sessions">
         <div class="row">
-          <% @sessions.each do |session| %>
-            <div class="col-xs-6 col-md-4">
-              <%= link_to session_path(session) do %>
-                <div class="card">
-                <% if session.user.photo? %>
-                  <% url = session.user.photo.path %>
-                <% else %>
-                  <% url = "sample" %>
-                <% end %>
-                  <div class="card-img-top" style="background: url(<%= cl_image_path url %>)">
+          <% if @ongoing_sessions.empty? %>
+            <div class="empty-message">
+              <em>No upcoming sessions yet!</em>
+            </div>
+          <% else %>
+            <% @ongoing_sessions.each do |session| %>
+              <div class="col-xs-6 col-sm-4 col-md-3">
+                <%= link_to session_path(session) do %>
+                  <div class="card">
+                    <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
                     <div class="card-description">
                       <p><%= session.description %></p>
                     </div>
+                    </div>
+                    <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                    <p class="card-title"><%= session.title %></p>
                   </div>
-                  <span class="card-author-price"><%= session.user.name.upcase %> - $<%= session.price %></span>
-                  <p class="card-title"><%= session.title %></p>
-                </div>
+                <% end %>
               </div>
             <% end %>
           <% end %>
         </div>
       </div>
+      <div role="tabpanel" class="tab-pane" id="past-sessions">
+        <div class="row">
+          <% if @over_sessions.empty? %>
+            <div class="empty-message">
+              <em>No past sessions yet!</em>
+            </div>
+          <% else %>
+            <% @over_sessions.each do |session| %>
+              <div class="col-xs-6 col-sm-4 col-md-3">
+                <%= link_to session_path(session) do %>
+                  <div class="card">
+                    <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
+                      <div class="card-description">
+                        <p><%= session.description %></p>
+                      </div>
+                    </div>
+                    <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                    <p class="card-title"><%= session.title %></p> <button type="button" class="btn btn-link">Review this session</button>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-
-
-
-
-
-
-
 <!-- Modal -->
+<%#= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>
+  <!-- <i class="fa fa-wrench"></i> -->
+<%# end %>
 <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
 
-        <%= simple_form_for(current_user) do |f| %>
-          <%= f.input :first_name %>
+        <%#= simple_form_for(current_user) do |f| %>
+          <%#= f.input :first_name %>
           <%#= f.input :photo, as: :attachinary %>
 
-          <%= f.submit %>
-          <% end %>
+          <%#= f.submit %>
+          <%# end %>
 
       </div>
     </div>

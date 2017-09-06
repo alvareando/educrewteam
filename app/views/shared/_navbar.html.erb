@@ -1,49 +1,58 @@
 <div class="navbar-wagon">
   <div class="keep-left">
   <!-- Logo -->
-  <ul>
-    <li><%= link_to root_path, class: "navbar-wagon-brand" do %>
-          <%= image_tag "icon.png" %>
-        <% end %></li>
-      <li class="left-link"><%= link_to "Become a tutor", "#", class: "navbar-wagon-item navbar-wagon-link" %></li>
-      <li class="left-link"><%= link_to "How it works", "#", class: "navbar-wagon-item navbar-wagon-link" %></li>
-      </ul>
+    <ul>
+      <li><%= link_to root_path, class: "navbar-wagon-brand" do %>
+        <%= image_tag "icon.png" %>
+        <% end %>
+      </li>
+      <li class="left-link"><%= link_to "How it works", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+      </li>
+      <% if current_user && user_signed_in? && current_user.tutor %>
+        <li class="single-dashboard-btn">
+          <%= link_to dashboard_path do  %><%= t(".dashboard", default: "Student Dashboard") %>
+            <% end %>
+        </li>
+      <% elsif current_user && user_signed_in? && %>
+        <li class="left-link" ><%= link_to "Become a tutor", become_tutor_path, class: "navbar-wagon-item navbar-wagon-link" %>
+        </li>
+        <li class="single-dashboard-btn">
+          <%= link_to dashboard_path do  %><%= t(".dashboard", default: "Student Dashboard") %>
+            <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
 
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
     <% if user_signed_in? %>
-      <!-- Links when logged in -->
-            <%#= link_to destroy_user_session_path, method: :delete do %>
-              <%#= t(".sign_out", default: "Log out") %>
-            <%# end %>
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
-          <%# picture_url = current_user.google_picture_url || current_user.facebook_picture_url %>
-            <%# unless picture_url %>
-              <%# picture_url = 'http://kitt.lewagon.com/placeholder/users/meredaul' %>
-            <%# end %>
-              <%= image_tag ('avatar.jpeg'), class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
-                <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+          <%= image_tag current_user.picture, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+            <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+                <% if current_user.tutor %>
                   <li>
-                    <%= link_to dashboard_path do %>
-                      <i class="fa fa-id-card-o"></i> <%= t(".dashboard", default: "Dashboard") %>
+                    <%= link_to new_session_path do %>
+                      <i class="fa fa-lightbulb-o"></i> Create a session
                     <% end %>
                   </li>
-                    <li>
-                      <%= link_to new_session_path do %>
-                        <i class="fa fa-lightbulb-o"></i> <%= t(".suggest", default: "Suggest a session") %>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to destroy_user_session_path, method: :delete do %>
-                        <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
-                      <% end %>
-                    </li>
-                </ul>
+                  <li>
+                    <%= link_to tutor_dashboard_path do %>
+                      <i class="fa fa-id-card-o"></i>
+                      Go to tutor area
+                    <% end %>
+                  </li>
+                <% end %>
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                    <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
+                  <% end %>
+                </li>
+            </ul>
         </div>
       </div>
 

@@ -8,10 +8,10 @@
 
       <div class="title-details">
         <div class="session-title">
-          <%=@session.title%>
+          <%= @session.title %>
         </div>
         <div class="details">
-          <%=@session.university%>
+          <%= @session.university %>
         </div>
       </div>
 
@@ -21,7 +21,7 @@
             About me
           </div>
           <div class="description">
-            I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2. I am have been a tutor since the World War 2.
+            <%= @user.about %>
           </div>
         </div>
         <hr>
@@ -30,7 +30,7 @@
             What we'll do
           </div>
           <div class="description">
-            <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%> <%=@session.description%>
+            <%= @session.description %>
           </div>
         </div>
         <hr>
@@ -39,7 +39,7 @@
             What you´ll get
           </div>
           <div class="description">
-            I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you. I will send ammunition to al of you.
+            I will provide past papers that we'll do during the session.
           </div>
         </div>
       </div>
@@ -60,11 +60,11 @@
                 Arthur Littman
               </div>
               <div class="review-date">
-                25 of April 2017
+                25 of June 2017
               </div>
             </div>
             <div class="review-description">
-              This guy is fucking crazy he killed his cat in them middle of the lecture. Do not trust this bastard.
+              This guy is very very good. Productivity wise one hour with him is like one day on my own.
             </div>
           </div>
           <hr>
@@ -74,14 +74,14 @@
             </div>
             <div class="username-and-date">
               <div class="review-username">
-                Arthur Littman
+                Dixon Lewis
               </div>
               <div class="review-date">
-                25 of April 2017
+                20 of April 2017
               </div>
             </div>
             <div class="review-description">
-              This guy is fucking crazy he killed his cat in them middle of the lecture. Do not trust this bastard.
+              Amazing teacher. We went all toghether through last years exam. Also the other students on the session were very helpful
             </div>
           </div>
         </div>
@@ -98,36 +98,51 @@
           Taught by:
         </div>
         <div class="teacher-id">
-          <img src="http://placehold.it/80x80" alt="" class="placeholder-big-avatar">
-          <h3>Alex Benoît</h3>
+          <%= image_tag @session.tutor.picture, class: "placeholder-big-avatar" %>
+          <h3><%= @session.tutor.name %></h3>
         </div>
       </div>
       <div class="sticky-container">
-        <div class="duration">
-          <i class="fa fa-hourglass-half" aria-hidden="true"></i> 3 hours
+        <div class="session-detail">
+          <i class="fa fa-hourglass-half"></i> 3 hours
         </div>
-        <div class="price">
-          <i class="fa fa-money" aria-hidden="true"></i> Price per person
+        <div class="session-detail">
+          <i class="fa fa-money"></i> <%= humanized_money_with_symbol(@session.price) %>
         </div>
-        <div class="join-button text-center">
-          Book your seat
+        <div class="session-detail">
+          <i class="fa fa-clock-o"></i> <%= @session.time.strftime("%H:%M") %> - <%= @session.date.strftime("%A, %e %B") %>
+        </div>
+        <div class="join-button-container">
+          <%= form_tag session_payments_path(@session) do %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+              data-name="Session payment"
+              data-email="<%= current_user.email %>"
+              data-description="<%= @session.title %>"
+              data-amount="<%= @session.price_cents %>"
+              data-currency="<%= @session.price.currency %>">
+            </script>
+            <% if current_user.participating_in?(@session) %>
+              <%= link_to "Go to live", session_live_path(@session), class: "join-button" %>
+            <% else %>
+              <%= submit_tag "Book your seat", class: "join-button" %>
+            <% end %>
+          <% end %>
         </div>
           <div class="joined-title">
             Already joined:
           </div>
           <div class="joined">
             <div class="user-join-avatar">
-              <img src="http://placehold.it/50x50" alt="" class="placeholder-avatar">
+              <img src="http://kitt.lewagon.com/placeholder/users/arthur-littm" alt="" class="placeholder-small-avatar">
               <div class="joined-username">
               Arthur Littman
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 </div>
-
-
-
