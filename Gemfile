@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.4'
 
+gem 'twilio-ruby'
 
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'

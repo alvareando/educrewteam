@@ -20,26 +20,24 @@
     </div>
     <%= render 'shared/footer' %>
     <%= javascript_include_tag 'application' %>
-    <%= yield(:after_js) %>
-    <script language="JavaScript">
-<!--
-var space = " ";
-var speed = "10";
-var pos = 0;
-var msg = "EDUCREW";
-function Scroll()
-{
-document.title = msg.substring(pos, msg.length) + space + msg.substring(0,pos);
-pos++;
-if (pos > msg.length) pos = 0;
-window.setTimeout("Scroll()", speed);
-}
-Scroll();
--->
-</script>
-
     <%= cloudinary_js_config %>
+    <%= yield(:after_js) %>
 
-    <%= yield :after_js %>
+    <script language="JavaScript">
+      <!--
+      var space = " ";
+      var speed = "10";
+      var pos = 0;
+      var msg = "EDUCREW";
+      function Scroll()
+      {
+      document.title = msg.substring(pos, msg.length) + space + msg.substring(0,pos);
+      pos++;
+      if (pos > msg.length) pos = 0;
+      window.setTimeout("Scroll()", speed);
+      }
+      Scroll();
+      -->
+    </script>
   </body>
 </html>

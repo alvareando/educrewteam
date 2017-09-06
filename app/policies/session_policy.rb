@@ -5,19 +5,11 @@ class SessionPolicy < ApplicationPolicy
     end
   end
 
-  def show?
-   true  # Anyone can view a restaurant
-  end
-
   def create?
-    record.user = user  # Anyone can create a restaurant
+    user.tutor
   end
 
-  def update?
-    record.user == user  # Only restaurant creator can update it
-  end
-
+  def live?
+    user.paid_for?(record) || (user == record.tutor)
   end
 end
-
-

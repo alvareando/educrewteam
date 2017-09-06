@@ -16,7 +16,6 @@ class PaymentsController < ApplicationController
       description:  "Payment for session #{@session.id}",
       currency:     @session.price.currency
     )
-
     Payment.create(session_uid: @session.id, payment: charge.to_json, state: 'paid')
     SessionParticipation.create(session: @session, student: current_user)
 
