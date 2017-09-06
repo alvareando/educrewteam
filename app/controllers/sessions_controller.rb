@@ -43,6 +43,17 @@ class SessionsController < ApplicationController
     @session = Session.find(params[:id])
     @user = @session.tutor
     @chatroom = @session.chatroom
+
+    require 'twilio-ruby'
+
+    @tutor_id = @session.tutor.email
+    @user_id = current_user.email
+    identity = current_user.email
+
+    @token = Twilio::JWT::AccessToken.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_API_KEY'], ENV['TWILIO_API_SECRET'], identity: identity)
+    grant = Twilio::JWT::AccessToken::VideoGrant.new
+    # grant.room = 'DailyStandup'
+    @token.add_grant(grant)
   end
 
   def update
