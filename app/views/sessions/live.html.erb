@@ -4,8 +4,8 @@
 
     <h1>Live for <%= @session.title %></h1>
       <p>video</p>
-      <div id="tutor_video"></div>
-      <div id="student_video"></div>
+      <div id="tutor_video" class="row"></div>
+      <div id="student_video" class="row"></div>
       <div id="connection_button" class="btn btn-success"></div>
       <div id="current_user_id" class="btn btn-primary" style="display: block"><%= @user_id %></div>
       <div id="tutor_id" class="btn btn-primary" style="display: block"><%= @tutor_id %></div>
@@ -53,7 +53,13 @@
     const session_tutor = document.getElementById('tutor_id').innerHTML;
 
     function trackAdded(div, identity, track) {
-      div.appendChild(track.attach());
+      console.log(track);
+      console.log(identity);
+      if (identity === session_tutor || current_user === session_tutor){
+        let temporary = track.attach();
+        div.appendChild(temporary);
+        temporary.classList.add('col-xs-4');
+      };
     }
     function trackRemoved(track) {
       track.detach().forEach(element => element.remove());
@@ -105,7 +111,7 @@
           room.once('disconnected', error => room.participants.forEach(participantDisconnected));
         });
       }else{
-        Twilio.Video.connect('<%= @token.to_jwt %>', { audio: true, name: '<%= @session.id %>', video: { width: 200 }}).then(room => {
+        Twilio.Video.connect('<%= @token.to_jwt %>', { audio: true, name: '<%= @session.id %>', video: { width: 250 }}).then(room => {
           console.log('Connected to Room "%s"', room.name);
 
           room.participants.forEach(participantConnected);
