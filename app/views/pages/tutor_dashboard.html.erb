@@ -67,24 +67,29 @@
       </div>
     </div>
     <div class="dashboard-right">
-    <div class="tutor-session-btn">
-      <%= link_to new_session_path class: "tutor-session-btn" do %>
-        Create a session
-      <% end %>
-    </div>
-      <div class="wrapper" style="border:1px solid rgba(1,1,1,0.6);; margin:26px; padding:38px;">
+      <div class="tutor-session-btn">
+        <%= link_to new_session_path class: "tutor-session-btn" do %>
+          Create a session
+        <% end %>
+      </div>
+      <div class="box-wrapper" style="border:1px solid rgba(1,1,1,0.6);; margin:26px; padding:38px;">
         <div class="table-title">
           <p style="font-weight: bold; color:rgba(1,1,1,0.6);">Tutoring summary</p>
             <p style="color:rgba(1,1,1,0.4);">Check back for the tutoring stats when you have the first session</p>
         </div>
         <div class="table-earnings">
-          <p style="border-top: 1px solid grey; padding-top: 4px; color:rgba(1,1,1,0.5);">August earnings <a href="#" style="color:#C37F63">$0.00</a></p>
-          <p style="color:rgba(1,1,1,0.5);">30-day view <a href="#" style="color:#C37F63">0</a></p>
+          <p class="alignleft">August earnings</p>
+          <p class="alignright">$0.00</p>
+          <p class="alignleft">30-day views</p>
+          <p class="alignright">0</p>
         </div>
         <div class="table-ratings">
-          <p style="border-top: 1px solid grey; padding-top: 4px; color:rgba(1,1,1,0.5);">Overall rating No reviews</p>
-          <p style="color:rgba(1,1,1,0.5);">Total reviews <a href="#" style="color:#C37F63">0</a></p>
-          <p style="color:rgba(1,1,1,0.5);">5-star reviews <a href="#" style="color:#C37F63">0%</a></p>
+          <p class="alignleft">Overall rating</p>
+          <p class="alignright">No reviews</p>
+          <p class="alignleft">Total reviews</p>
+          <p class="alignright">0</p>
+          <p class="alignleft">5-star reviews</p>
+          <p class="alignright">0%</p>
         </div>
       </div>
     </div>
