@@ -6,7 +6,7 @@
       <p>video</p>
       <div id="video"></div>
       <div id="connection_button" class="btn btn-success"></div>
-      <div id="current_user_id" class="btn btn-primary"><%= @user.email %></div>
+      <div id="current_user_id" class="btn btn-primary"><%= @user_id %></div>
       <div id="tutor_id" class="btn btn-primary"><%= @tutor_id %></div>
     </div>
 
@@ -42,15 +42,15 @@
 
 
 <%= content_for :after_js do %>
-  <script>
+  <!-- <script>
     scrollLastMessageIntoView();
     console.log('123');
 
-    App['chatroom_<%= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%= @chatroom.id %> }, {
+    App['chatroom_<%#= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%#= @chatroom.id %> }, {
       received: (data) => {
         console.log('543221');
         // if (data.current_user_id !== <%#current_user.id %>) {
-           if (data.c_user !== <%= current_user.id %>) {
+           if (data.c_user !== <%#= current_user.id %>) {
           const messagesContainer = document.querySelector('.messages');
           messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
           scrollLastMessageIntoView();
@@ -58,7 +58,7 @@
       }
     })
   </script>
-
+ -->
 
   <script>
     function trackAdded(div, identity, track) {
