@@ -85,5 +85,7 @@ class User < ApplicationRecord
     user
   end
 
-
+  def paid_for?(session)
+    SessionParticipation.where(session: session).where(student: self).present?
+  end
 end

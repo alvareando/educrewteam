@@ -18,6 +18,7 @@ class SessionsController < ApplicationController
 
   def create
     @session = Session.new(session_params)
+    authorize @session
     if current_user.tutor?
       @session.tutor = current_user
       if @session.save
@@ -41,6 +42,7 @@ class SessionsController < ApplicationController
 
   def live
     @session = Session.find(params[:id])
+    authorize @session
     @user = @session.tutor
     @chatroom = @session.chatroom
   end
