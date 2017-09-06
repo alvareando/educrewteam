@@ -1,0 +1,94 @@
+
+<div class="container">
+
+  <div class="dashboard-title">
+    <h1 class="text-center">Tutor Dashboard</h1>
+  </div>
+
+  <div class="dashboard-content">
+    <div class="dashboard-left">
+      <div class="tab">
+        <ul class="nav nav-tabs sessions-tabs" role="tablist">
+          <li role="presentation" class="active session-tab"><a href="#upcoming-sessions" aria-controls="upcoming-sessions" role="tab" data-toggle="tab">Upcoming sessions (<%= @ongoing_sessions.count %>)</a></li>
+          <li role="presentation" class="session-tab"><a href="#past-sessions" aria-controls="past-sessions" role="tab" data-toggle="tab">Past Sessions (<%= @over_sessions.count %>)</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="upcoming-sessions">
+          <div class="row">
+            <% if @ongoing_sessions.empty? %>
+              <div class="empty-message">
+                <em>No upcoming sessions yet!</em>
+              </div>
+            <% else %>
+              <% @ongoing_sessions.each do |session| %>
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                  <%= link_to session_path(session) do %>
+                    <div class="card">
+                      <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
+                      <div class="card-description">
+                        <p><%= session.description %></p>
+                      </div>
+                      </div>
+                      <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                      <p class="card-title"><%= session.title %></p>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="past-sessions">
+          <div class="row">
+            <% if @over_sessions.empty? %>
+              <div class="empty-message">
+                <em>No past sessions yet!</em>
+              </div>
+            <% else %>
+              <% @over_sessions.each do |session| %>
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                  <%= link_to session_path(session) do %>
+                    <div class="card">
+                      <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
+                        <div class="card-description">
+                          <p><%= session.description %></p>
+                        </div>
+                      </div>
+                      <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                      <p class="card-title"><%= session.title %></p>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-right">
+    <div class="tutor-session-btn">
+      <%= link_to new_session_path class: "tutor-session-btn" do %>
+        Create a session
+      <% end %>
+    </div>
+      <div class="wrapper" style="border:1px solid rgba(1,1,1,0.6);; margin:26px; padding:38px;">
+        <div class="table-title">
+          <p style="font-weight: bold; color:rgba(1,1,1,0.6);">Tutoring summary</p>
+            <p style="color:rgba(1,1,1,0.4);">Check back for the tutoring stats when you have the first session</p>
+        </div>
+        <div class="table-earnings">
+          <p style="border-top: 1px solid grey; padding-top: 4px; color:rgba(1,1,1,0.5);">August earnings <a href="#" style="color:#C37F63">$0.00</a></p>
+          <p style="color:rgba(1,1,1,0.5);">30-day view <a href="#" style="color:#C37F63">0</a></p>
+        </div>
+        <div class="table-ratings">
+          <p style="border-top: 1px solid grey; padding-top: 4px; color:rgba(1,1,1,0.5);">Overall rating No reviews</p>
+          <p style="color:rgba(1,1,1,0.5);">Total reviews <a href="#" style="color:#C37F63">0</a></p>
+          <p style="color:rgba(1,1,1,0.5);">5-star reviews <a href="#" style="color:#C37F63">0%</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
