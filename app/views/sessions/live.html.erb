@@ -1,16 +1,18 @@
 <div class="container">
-
   <div class="row">
     <div class="col-xs-8">
+
     <h1>Live for <%= @session.title %></h1>
       <p>video</p>
-      <div id="video"></div>
+      <div id="tutor_video" class=""></div>
+      <div id="student_video" class=""></div>
       <div id="connection_button" class="btn btn-success"></div>
-      <div id="current_user_id" class="btn btn-primary"><%= @user.email %></div>
-      <div id="tutor_id" class="btn btn-primary"><%= @tutor_id %></div>
+      <div id="current_user_id" class="btn btn-primary" style="display: block"><%= @user_id %></div>
+      <div id="tutor_id" class="btn btn-primary" style="display: block"><%= @tutor_id %></div>
     </div>
 
-    <div class="col-xs-4">
+
+    <div class="col-xs-4" style="display: none">
       <div class="chat-header"><h4>#<%= @chatroom.session.title %></h4></div>
       <div class="messages">
         <% @chatroom.messages.each do |message| %>
@@ -24,6 +26,7 @@
       </div>
     </div>
   </div>
+
 
   <div class="row">
     <div class="col-xs-12">
@@ -42,27 +45,21 @@
 
 
 <%= content_for :after_js do %>
-  <script>
-    scrollLastMessageIntoView();
-    console.log('123');
-
-    App['chatroom_<%= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%= @chatroom.id %> }, {
-      received: (data) => {
-        console.log('543221');
-        // if (data.current_user_id !== <%#current_user.id %>) {
-           if (data.c_user !== <%= current_user.id %>) {
-          const messagesContainer = document.querySelector('.messages');
-          messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
-          scrollLastMessageIntoView();
-        }
-      }
-    })
-  </script>
+  <script src="//media.twiliocdn.com/sdk/js/video/v1/twilio-video.min.js"></script>
 
 
   <script>
+    const current_user = document.getElementById('current_user_id').innerHTML;
+    const session_tutor = document.getElementById('tutor_id').innerHTML;
+
     function trackAdded(div, identity, track) {
-      div.appendChild(track.attach());
+      console.log(track);
+      console.log(identity);
+      if (identity === session_tutor || current_user === session_tutor){
+        let temporary = track.attach();
+        div.appendChild(temporary);
+        // temporary.classList.add('col-xs-4');
+      };
     }
     function trackRemoved(track) {
       track.detach().forEach(element => element.remove());
@@ -71,10 +68,18 @@
     function participantConnected(participant) {
       console.log('Participant "%s" connected', participant.identity);
 
-      const tutorVideo = document.getElementById('video');
+      const tutorVideo = document.getElementById('tutor_video');
+      const studentVideo = document.getElementById('student_video');
 
-      participant.on('trackAdded', track => trackAdded(tutorVideo, participant.identity, track));
-      participant.tracks.forEach(track => trackAdded(tutorVideo, participant.identity, track));
+      if (current_user === session_tutor){
+        participant.on('trackAdded', track => trackAdded(tutorVideo, participant.identity, track));
+        participant.tracks.forEach(track => trackAdded(tutorVideo, participant.identity, track));
+        studentVideo.style.display = 'none';
+      }else{
+        participant.on('trackAdded', track => trackAdded(studentVideo, participant.identity, track));
+        participant.tracks.forEach(track => trackAdded(studentVideo, participant.identity, track));
+        tutorVideo.style.display = 'none';
+      };
       participant.on('trackRemoved', trackRemoved);
     }
     function participantDisconnected(participant) {
@@ -96,17 +101,69 @@
         console.log('You are a student');
       };
 
-      Twilio.Video.connect('<%= @token.to_jwt %>', { audio: true, name: 'alex-room', video: { width: 640 }}).then(room => {
-        console.log('Connected to Room "%s"', room.name);
+      if (current_user === session_tutor){
+        Twilio.Video.connect('<%= @token.to_jwt %>', { audio: true, name: '<%= @session.id %>', video: { width: 640 }}).then(room => {
+          console.log('Connected to Room "%s"', room.name);
 
-        room.participants.forEach(participantConnected);
-        room.on('participantConnected', participantConnected);
-        room.on('participantDisconnected', participantDisconnected);
-        room.once('disconnected', error => room.participants.forEach(participantDisconnected));
-      });
+          room.participants.forEach(participantConnected);
+          room.on('participantConnected', participantConnected);
+          room.on('participantDisconnected', participantDisconnected);
+          room.once('disconnected', error => room.participants.forEach(participantDisconnected));
+        });
+      }else{
+        Twilio.Video.connect('<%= @token.to_jwt %>', { audio: true, name: '<%= @session.id %>', video: { width: 250 }}).then(room => {
+          console.log('Connected to Room "%s"', room.name);
+
+          room.participants.forEach(participantConnected);
+          room.on('participantConnected', participantConnected);
+          room.on('participantDisconnected', participantDisconnected);
+          room.once('disconnected', error => room.participants.forEach(participantDisconnected));
+        });
+      };
     }
 
     const bouton = document.getElementById('connection_button');
     bouton.addEventListener('click', streaming );
   </script>
 <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script>
+    scrollLastMessageIntoView();
+    console.log('123');
+
+    App['chatroom_<%#= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%#= @chatroom.id %> }, {
+      received: (data) => {
+        console.log('543221');
+        // if (data.current_user_id !== <%#current_user.id %>) {
+           if (data.c_user !== <%#= current_user.id %>) {
+          const messagesContainer = document.querySelector('.messages');
+          messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
+          scrollLastMessageIntoView();
+        }
+      }
+    })
+  </script>
+ -->

@@ -1,6 +1,4 @@
-
 <div class="sticky-content container">
-
   <!-- Left -->
   <div class="session-left">
 
@@ -47,46 +45,67 @@
       <hr>
 
       <div class="reviews-container">
-        <div class="review-title">
-          Reviews
-        </div>
-        <div class="reviews session-container">
-          <div class="review">
-            <div class="user-review-avatar">
-              <img src="http://placehold.it/50x50" alt="" class="placeholder-avatar">
-            </div>
-            <div class="username-and-date">
-              <div class="review-username">
-                Arthur Littman
-              </div>
-              <div class="review-date">
-                25 of June 2017
-              </div>
-            </div>
-            <div class="review-description">
-              This guy is very very good. Productivity wise one hour with him is like one day on my own.
-            </div>
+        <div class="review-top">
+          <div class="review-title">
+            Reviews
           </div>
-          <hr>
-          <div class="review">
-            <div class="user-review-avatar">
-              <img src="http://placehold.it/50x50" alt="" class="placeholder-avatar">
-            </div>
-            <div class="username-and-date">
-              <div class="review-username">
-                Dixon Lewis
+          <%= link_to "Add a review", '#', class: 'btn btn-primary', data: {toggle: :modal, target: '#formModal'} %>
+        </div>
+
+        <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add a Review</h4>
               </div>
-              <div class="review-date">
-                20 of April 2017
+              <div class="modal-body">
+                <%= simple_form_for [@session, @review] do |f| %>
+                <%= f.input :body %>
               </div>
-            </div>
-            <div class="review-description">
-              Amazing teacher. We went all toghether through last years exam. Also the other students on the session were very helpful
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <%= f.submit class: 'btn btn-success' %>
+              </div>
+              <% end %>
+
             </div>
           </div>
         </div>
+            <% reviews = [] %>
+            <% @session.tutor.tutor_sessions("over").to_a.each do |session| %>
+              <% if session.subject == @session.subject%>
+                <% session.reviews.each{|review| reviews << review } %>
+              <% end %>
+            <% end %>
+            <% if reviews.count > 0 %>
+              <div class="reviews session-container">
+
+              <% reviews.each do |review| %>
+                <div class="review">
+                  <div class="user-review-avatar">
+                    <%= image_tag review.user.picture %>
+                  </div>
+                  <div class="username-and-date">
+                    <div class="review-username">
+                      <%= review.user.name %>
+                    </div>
+                    <div class="review-date">
+                      <%= review.created_at.strftime("%A, %e %B") %>
+                    </div>
+                  </div>
+                  <div class="review-description">
+                    <%= review.body %>
+                  </div>
+                </div>
+                <% unless reviews.last == review %>
+                  <hr>
+                <% end %>
+              <% end %>
+              </div>
+            <% end %>
+          </div>
       </div>
-    </div>
   </div>
 
 
@@ -114,39 +133,35 @@
         </div>
         <div class="join-button-container">
           <%= form_tag session_payments_path(@session) do %>
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-              data-name="Session payment"
-              data-email="<%= current_user.email %>"
-              data-description="<%= @session.title %>"
-              data-amount="<%= @session.price_cents %>"
-              data-currency="<%= @session.price.currency %>">
-            </script>
-            <% if current_user.participating_in?(@session) || current_user == @session.tutor %>
-              <%= link_to "Go to live", session_live_path(@session), class: "join-button" %>
-            <% else %>
-              <%= submit_tag "Book your seat", class: "join-button" %>
-            <% end %>
-          <% end %>
-        </div>
-          <div class="joined-title">
-            Already joined:
-          </div>
-          <div class="joined">
-            <div class="user-join-avatar">
-              <img src="http://kitt.lewagon.com/placeholder/users/arthur-littm" alt="" class="placeholder-small-avatar">
-              <div class="joined-username">
-              Arthur Littman
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <%= link_to session_live_path do  %>
-          <div class="video_button btn btn-warn">Video and Chatting space</div>
+          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-name="Session payment"
+          data-email="<%= current_user.email %>"
+          data-description="<%= @session.title %>"
+          data-amount="<%= @session.price_cents %>"
+          data-currency="<%= @session.price.currency %>">
+        </script>
+        <% if current_user.participating_in?(@session) %>
+        <%= link_to "Go to live", session_live_path(@session), class: "join-button" %>
+        <% else %>
+        <%= submit_tag "Book your seat", class: "join-button" %>
         <% end %>
-
+        <% end %>
+      </div>
+      <div class="joined-title">
+        Already joined:
+      </div>
+      <div class="joined">
+        <div class="user-join-avatar">
+          <img src="http://kitt.lewagon.com/placeholder/users/arthur-littm" alt="" class="placeholder-small-avatar">
+          <div class="joined-username">
+            Arthur Littman
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
+</div>
+</div>
 </div>
