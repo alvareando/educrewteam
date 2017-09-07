@@ -16,7 +16,7 @@
       <div class="chat-header"><h4><%= @chatroom.session.title %></h4></div>
       <div class="messages">
         <% @chatroom.messages.each do |message| %>
-          <%= render "messages/message", message: message, user_is_messages_author: message.from?(current_user), current_user: current_user %>
+          <%= render "messages/message", message: message, user_is_messages_author: message.from?(current_user), c_user: current_user %>
         <% end %>
       </div>
       <div id="create-message">
@@ -106,6 +106,7 @@
 
       if (current_user === session_tutor){
         Twilio.Video.connect('<%= @token.to_jwt %>', { audio: true, name: '<%= @session.id %>', video: { width: 640 }}).then(room => {
+          console.log('tutor?');
           console.log('Connected to Room "%s"', room.name);
 
           room.participants.forEach(participantConnected);
@@ -114,6 +115,7 @@
           room.once('disconnected', error => room.participants.forEach(participantDisconnected));
         });
       }else{
+        console.log('student?');
         Twilio.Video.connect('<%= @token.to_jwt %>', { audio: true, name: '<%= @session.id %>', video: { width: 250 }}).then(room => {
           console.log('Connected to Room "%s"', room.name);
 
