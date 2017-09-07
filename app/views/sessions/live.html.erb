@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-xs-8">
 
-    <h1>Live for <%= @session.title %></h1>
+      <h1>Live for <%= @session.title %></h1>
       <p>video</p>
-      <div id="tutor_video" class=""></div>
+      <div id="tutor_video" class="tu"></div>
       <div id="student_video" class=""></div>
       <div id="connection_button" class="btn btn-success"></div>
       <div id="current_user_id" class="btn btn-primary" style="display: block"><%= @user_id %></div>
@@ -12,11 +12,11 @@
     </div>
 
 
-    <div class="col-xs-4" style="display: none">
-      <div class="chat-header"><h4>#<%= @chatroom.session.title %></h4></div>
+    <div class="col-xs-4">
+      <div class="chat-header"><h4><%= @chatroom.session.title %></h4></div>
       <div class="messages">
         <% @chatroom.messages.each do |message| %>
-          <%= render "messages/message", message: message, user_is_messages_author: message.from?(current_user), c_user: current_user %>
+          <%= render "messages/message", message: message, user_is_messages_author: message.from?(current_user), current_user: current_user %>
         <% end %>
       </div>
       <div id="create-message">
@@ -128,6 +128,42 @@
     const bouton = document.getElementById('connection_button');
     bouton.addEventListener('click', streaming );
   </script>
+
+
+  <script>
+    function focusOnWrittingMessage() {
+      const message_to_send = document.getElementById('message_body');
+      message_to_send.focus();
+    }
+    focusOnWrittingMessage();
+    scrollLastMessageIntoView();
+
+    App['chatroom_<%= @chatroom.id %>'] = App.cable.subscriptions.create(
+      { channel: 'ChatroomsChannel', chatroom_id: <%= @chatroom.id %> },
+      {
+        received: (data) => {
+          if (data.sender !== <%= current_user.id %>) {
+            const messagesContainer = document.querySelector('.messages');
+            messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
+            scrollLastMessageIntoView();
+          }
+        }
+      }
+    )
+    // scrollLastMessageIntoView();
+    // console.log('123');
+    // App['chatroom_<%#= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%#= @chatroom.id %> }, {
+    //   received: (data) => {
+    //     console.log('543221');
+    //       // if (data.current_user_id !== <%#current_user.id %>) {
+            //  if (data.c_user !== <%#= current_user.id %>) {
+            // const messagesContainer = document.querySelector('.messages');
+            // messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
+            // scrollLastMessageIntoView();
+    //     // }
+    //   }
+    // })
+  </script>
 <% end %>
 
 
@@ -153,20 +189,3 @@
 
 
 
-<!-- <script>
-    scrollLastMessageIntoView();
-    console.log('123');
-
-    App['chatroom_<%#= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%#= @chatroom.id %> }, {
-      received: (data) => {
-        console.log('543221');
-        // if (data.current_user_id !== <%#current_user.id %>) {
-           if (data.c_user !== <%#= current_user.id %>) {
-          const messagesContainer = document.querySelector('.messages');
-          messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
-          scrollLastMessageIntoView();
-        }
-      }
-    })
-  </script>
- -->
