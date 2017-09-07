@@ -9,7 +9,7 @@
         <li role="presentation" class="active session-tab"><a href="#upcoming-sessions" aria-controls="upcoming-sessions" role="tab" data-toggle="tab">Upcoming sessions (<%= @ongoing_sessions.count %>)</a></li>
         <li role="presentation" class="session-tab"><a href="#past-sessions" aria-controls="past-sessions" role="tab" data-toggle="tab">Past Sessions (<%= @over_sessions.count %>)</a></li>
     </div>
-    <div class="tab-content">
+    <div class="tab-content dash-cards">
       <div role="tabpanel" class="tab-pane active" id="upcoming-sessions">
         <div class="row">
           <% if @ongoing_sessions.empty? %>
@@ -19,7 +19,7 @@
           <% else %>
             <% @ongoing_sessions.each do |session| %>
               <div class="col-xs-6 col-sm-4 col-md-4">
-                <%= link_to session_path(session) do %>
+                <%= link_to session_path(session), class: "card-student-dashboard-link" do %>
                 <div class="card" style= "background: linear-gradient(to right,<%= session.get_color(session.subject) %>)">
                   <div class="card-top">
                     <div class="card-subject">
@@ -66,7 +66,7 @@
           <% else %>
             <% @over_sessions.each do |session| %>
               <div class="col-xs-6 col-sm-4 col-md-4">
-                <%= link_to session_path(session) do %>
+                <%= link_to session_path(session), class: "card-student-dashboard-link" do %>
                 <div class="card" style= "background: linear-gradient(to right,<%= session.get_color(session.subject) %>)">
                   <div class="card-top">
                     <div class="card-subject">

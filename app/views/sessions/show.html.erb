@@ -49,7 +49,9 @@
           <div class="review-title">
             Reviews
           </div>
-          <%= link_to "Add a review", '#', class: 'btn btn-primary', data: {toggle: :modal, target: '#formModal'} %>
+          <% if Date.today > @session.date && policy(@session).live? %>
+            <%= link_to "Add a review", '#', class: 'btn btn-primary', data: {toggle: :modal, target: '#formModal'} %>
+          <% end %>
         </div>
 
         <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -84,7 +86,7 @@
               <% reviews.each do |review| %>
                 <div class="review">
                   <div class="user-review-avatar">
-                    <%= image_tag review.user.picture %>
+                    <%= image_tag review.user.picture, class: "placeholder-small-avatar" %>
                   </div>
                   <div class="username-and-date">
                     <div class="review-username">
@@ -102,6 +104,10 @@
                   <hr>
                 <% end %>
               <% end %>
+              </div>
+            <% else %>
+              <div class="reviews session-container">
+                <span>No reviews yet!</span>
               </div>
             <% end %>
           </div>
@@ -123,7 +129,7 @@
       </div>
       <div class="sticky-container">
         <div class="session-detail">
-          <i class="fa fa-hourglass-half"></i> 3 hours
+          <i class="fa fa-hourglass-half"></i> <%= @session.duration %>
         </div>
         <div class="session-detail">
           <i class="fa fa-money"></i> <%= humanized_money_with_symbol(@session.price) %>
@@ -151,14 +157,16 @@
       <div class="joined-title">
         Already joined:
       </div>
+      <% @session.session_participations.each do |participation| %>
       <div class="joined">
         <div class="user-join-avatar">
-          <img src="http://kitt.lewagon.com/placeholder/users/arthur-littm" alt="" class="placeholder-small-avatar">
+          <%= image_tag participation.student.picture, class: "placeholder-small-avatar" %>
           <div class="joined-username">
-            Arthur Littman
+            <%= participation.student.name %>
           </div>
         </div>
       </div>
+      <% end %>
     </div>
   </div>
 </div>
