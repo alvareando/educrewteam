@@ -1,5 +1,20 @@
 <div class="container padded">
   <div class="row">
+    <div class="col-xs-12">
+      <h2 class="text-center">Find your session!</h2>
+    </div>
+  </div>
+  <div class="row search-filter-box">
+    <div class="col-xs-12">
+      <%= form_tag sessions_path, method: 'get', enforce_utf8: false, class: "form-inline" do %>
+        <span>Filters:</span>
+        <%= text_field_tag :subject, "", value: params[:subject], placeholder: 'Subject', class: "form-control" %>
+        <%= text_field_tag :university, "", value: params[:university], placeholder: 'University', class: "form-control" %>
+        <%= submit_tag "Find a session", class: "btn btn-default", name: nil %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
     <% @sessions.each do |session| %>
       <div class="col-xs-6 col-sm-4 col-md-4">
         <%= link_to session_path(session), class: "sessions-card-link" do %>

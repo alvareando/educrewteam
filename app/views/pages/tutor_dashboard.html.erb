@@ -13,7 +13,7 @@
           <li role="presentation" class="session-tab"><a href="#past-sessions" aria-controls="past-sessions" role="tab" data-toggle="tab">Past Sessions (<%= @over_sessions.count %>)</a></li>
         </ul>
       </div>
-      <div class="tab-content">
+      <div class="tab-content dash-cards">
         <div role="tabpanel" class="tab-pane active" id="upcoming-sessions">
           <div class="row">
             <% if @ongoing_sessions.empty? %>
@@ -22,16 +22,38 @@
               </div>
             <% else %>
               <% @ongoing_sessions.each do |session| %>
-                <div class="col-xs-6 col-sm-4 col-md-3">
-                  <%= link_to session_path(session) do %>
-                    <div class="card">
-                      <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
-                      <div class="card-description">
-                        <p><%= session.description %></p>
-                      </div>
-                      </div>
-                      <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
-                      <p class="card-title"><%= session.title %></p>
+                <div class="col-xs-6">
+                  <%= link_to session_path(session), class: "card-student-dashboard-link" do %>
+                    <div class="card" style= "background: linear-gradient(to right,<%= session.get_color(session.subject) %>)">
+                      <div class="card-top">
+                        <div class="card-subject">
+                          # <%= session.subject %>
+                        </div>
+                        <div class="card-avatar">
+                          <%= image_tag session.tutor.picture, class: "small-card-avatar" %>
+                        </div>
+                          <div class="main-title">
+                            <div class="card-title">
+                              <%= session.title %>
+                            </div>
+                            <div class="card-university">
+                              <%= session.university %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-details">
+                          <div class="card-date-duration">
+                            <div class="card-date flex-bottom">
+                                <i class="fa fa-clock-o"></i><%= session.date.strftime("%A, %e %B") %> - <%= session.time.strftime("%H:%M") %>
+                            </div>
+                            <div class="card-duration flex-bottom">
+                              <i class="fa fa-hourglass-half"></i> <%= session.duration %>
+                            </div>
+                          </div>
+                          <div class="card-price">
+                            <%= humanized_money_with_symbol(session.price) %>
+                          </div>
+                        </div>
                     </div>
                   <% end %>
                 </div>
@@ -47,16 +69,38 @@
               </div>
             <% else %>
               <% @over_sessions.each do |session| %>
-                <div class="col-xs-6 col-sm-4 col-md-3">
-                  <%= link_to session_path(session) do %>
-                    <div class="card">
-                      <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
-                        <div class="card-description">
-                          <p><%= session.description %></p>
+                <div class="col-xs-6">
+                  <%= link_to session_path(session), class: "card-student-dashboard-link" do %>
+                    <div class="card" style= "background: linear-gradient(to right,<%= session.get_color(session.subject) %>)">
+                      <div class="card-top">
+                        <div class="card-subject">
+                          # <%= session.subject %>
                         </div>
-                      </div>
-                      <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
-                      <p class="card-title"><%= session.title %></p>
+                        <div class="card-avatar">
+                          <%= image_tag session.tutor.picture, class: "small-card-avatar" %>
+                        </div>
+                          <div class="main-title">
+                            <div class="card-title">
+                              <%= session.title %>
+                            </div>
+                            <div class="card-university">
+                              <%= session.university %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-details">
+                          <div class="card-date-duration">
+                            <div class="card-date flex-bottom">
+                                <i class="fa fa-clock-o"></i><%= session.date.strftime("%A, %e %B") %> - <%= session.time.strftime("%H:%M") %>
+                            </div>
+                            <div class="card-duration flex-bottom">
+                              <i class="fa fa-hourglass-half"></i> <%= session.duration %>
+                            </div>
+                          </div>
+                          <div class="card-price">
+                            <%= humanized_money_with_symbol(session.price) %>
+                          </div>
+                        </div>
                     </div>
                   <% end %>
                 </div>
@@ -78,13 +122,13 @@
             <p style="color:rgba(1,1,1,0.4);">Check back for the tutoring stats when you have the first session</p>
         </div>
         <div class="table-earnings">
-          <p style="border-top: 1px solid grey; padding-top: 4px; color:rgba(1,1,1,0.5);">August earnings <a href="#" style="color:#C37F63">$0.00</a></p>
-          <p style="color:rgba(1,1,1,0.5);">30-day view <a href="#" style="color:#C37F63">0</a></p>
+          <p style="border-top: 1px solid grey; padding-top: 4px; color:rgba(1,1,1,0.5);">August earnings <a href="#" style="color:#C37F63">$42.00</a></p>
+          <p style="color:rgba(1,1,1,0.5);">30-day view <a href="#" style="color:#C37F63">82</a></p>
         </div>
         <div class="table-ratings">
           <p style="border-top: 1px solid grey; padding-top: 4px; color:rgba(1,1,1,0.5);">Overall rating No reviews</p>
-          <p style="color:rgba(1,1,1,0.5);">Total reviews <a href="#" style="color:#C37F63">0</a></p>
-          <p style="color:rgba(1,1,1,0.5);">5-star reviews <a href="#" style="color:#C37F63">0%</a></p>
+          <p style="color:rgba(1,1,1,0.5);">Total reviews <a href="#" style="color:#C37F63">12</a></p>
+          <p style="color:rgba(1,1,1,0.5);">5-star reviews <a href="#" style="color:#C37F63">60%</a></p>
         </div>
       </div>
     </div>
