@@ -123,7 +123,7 @@
       </div>
       <div class="sticky-container">
         <div class="session-detail">
-          <i class="fa fa-hourglass-half"></i> 3 hours
+          <i class="fa fa-hourglass-half"></i> <%= @session.duration %>
         </div>
         <div class="session-detail">
           <i class="fa fa-money"></i> <%= humanized_money_with_symbol(@session.price) %>
@@ -151,14 +151,16 @@
       <div class="joined-title">
         Already joined:
       </div>
+      <% @session.session_participations.each do |participation| %>
       <div class="joined">
         <div class="user-join-avatar">
-          <img src="http://kitt.lewagon.com/placeholder/users/arthur-littm" alt="" class="placeholder-small-avatar">
+          <%= image_tag participation.student.picture, class: "placeholder-small-avatar" %>
           <div class="joined-username">
-            Arthur Littman
+            <%= participation.student.name %>
           </div>
         </div>
       </div>
+      <% end %>
     </div>
 
   </div>
