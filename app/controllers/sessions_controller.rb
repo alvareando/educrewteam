@@ -1,12 +1,12 @@
 class SessionsController < ApplicationController
   def index
     if params[:subject].present? && params[:university].present?
-      @sessions = Session.where(subject: params[:subject], university: params[:university])
-      # @sessions = Session.where("subject = ? AND university = ?", params[:subject], params[:university])
+      # @sessions = Session.where(subject: params[:subject], university: params[:university])
+      @sessions = Session.where("subject ilike ? AND university ilike ?", params[:subject], params[:university])
     elsif params[:subject].present?
-      @sessions = Session.where(subject: params[:subject])
+      @sessions = Session.where("subject ilike ?", params[:subject])
     elsif params[:university].present?
-      @sessions = Session.where(university: params[:university])
+      @sessions = Session.where("university ilike ?", params[:university])
     else
       @sessions = Session.all
     end
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
         new_chatroom = Chatroom.new
         new_chatroom.session = @session
         new_chatroom.save
-        redirect_to chatroom_path(new_chatroom)
+        redirect_to tutor_dashboard_path
       else
         render :new
       end
@@ -68,7 +68,7 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:title, :description, :date, :time, :price, :subject, :university)
+    params.require(:session).permit(:title, :description, :date, :time, :price, :subject, :university, :duration)
   end
 
 end

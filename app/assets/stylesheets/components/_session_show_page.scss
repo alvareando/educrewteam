@@ -47,6 +47,7 @@
   border-radius: 4px;
   padding: 25px 20px;
   margin-bottom: 20px;
+  margin-top: 20px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
 }
 
@@ -65,6 +66,8 @@
 }
 
 // Review section
+
+.review-modal
 
 .reviews-container {
   padding-bottom: 60px;
@@ -120,6 +123,7 @@
 }
 
 .session-right {
+  overflow: scroll;
   margin-top: 55px;
   flex: 0 0 450px;
   height: 100vh;
