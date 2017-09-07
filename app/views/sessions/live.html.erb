@@ -4,8 +4,9 @@
 
       <h1>Live for <%= @session.title %></h1>
       <p>video</p>
-      <div id="tutor_video" class="tu"></div>
+      <div id="tutor_video" class=""></div>
       <div id="student_video" class=""></div>
+      <div id="preview_camera"></div>
       <div id="connection_button" class="btn btn-success"></div>
       <div id="current_user_id" class="btn btn-primary" style="display: block"><%= @user_id %></div>
       <div id="tutor_id" class="btn btn-primary" style="display: block"><%= @tutor_id %></div>
@@ -78,10 +79,20 @@
         participant.on('trackAdded', track => trackAdded(tutorVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(tutorVideo, participant.identity, track));
         studentVideo.style.display = 'none';
+        const { createLocalVideoTrack } = require('twilio-video');
+        createLocalVideoTrack().then(track => {
+          const localMediaContainer = document.getElementById('preview_camera');
+          localMediaContainer.appendChild(track.attach());
+        });
       }else{
         participant.on('trackAdded', track => trackAdded(studentVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(studentVideo, participant.identity, track));
         tutorVideo.style.display = 'none';
+        const { createLocalVideoTrack } = require('twilio-video');
+        createLocalVideoTrack().then(track => {
+          const localMediaContainer = document.getElementById('preview_camera');
+          localMediaContainer.appendChild(track.attach());
+        });
       };
       participant.on('trackRemoved', trackRemoved);
     }
