@@ -141,7 +141,7 @@
           data-amount="<%= @session.price_cents %>"
           data-currency="<%= @session.price.currency %>">
         </script>
-        <% if current_user.participating_in?(@session) %>
+        <% if policy(@session).live? %>
         <%= link_to "Go to live", session_live_path(@session), class: "join-button" %>
         <% else %>
         <%= submit_tag "Book your seat", class: "join-button" %>
@@ -160,7 +160,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 </div>
