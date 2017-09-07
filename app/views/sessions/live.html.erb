@@ -55,10 +55,10 @@
     function trackAdded(div, identity, track) {
       console.log(track);
       console.log(identity);
-      if (identity === session_tutor || current_user === session_tutor){
+      if (current_user === session_tutor){
         let temporary = track.attach();
         div.appendChild(temporary);
-        // temporary.classList.add('col-xs-4');
+        temporary.classList.add('col-xs-4');
       }else if (identity === session_tutor){
         let temporary = track.attach();
         div.appendChild(temporary);
@@ -152,19 +152,6 @@
         }
       }
     )
-    // scrollLastMessageIntoView();
-    // console.log('123');
-    // App['chatroom_<%#= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%#= @chatroom.id %> }, {
-    //   received: (data) => {
-    //     console.log('543221');
-    //       // if (data.current_user_id !== <%#current_user.id %>) {
-            //  if (data.c_user !== <%#= current_user.id %>) {
-            // const messagesContainer = document.querySelector('.messages');
-            // messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
-            // scrollLastMessageIntoView();
-    //     // }
-    //   }
-    // })
   </script>
 <% end %>
 
