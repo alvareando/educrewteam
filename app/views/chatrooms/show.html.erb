@@ -18,7 +18,7 @@
 
 <%= content_for :after_js do %>
   <script>
-    scrollLastMessageIntoView();
+    // scrollLastMessageIntoView();
     console.log('123');
 
     App['chatroom_<%= @chatroom.id %>'] = App.cable.subscriptions.create({ channel: 'ChatroomsChannel', chatroom_id: <%= @chatroom.id %> }, {
@@ -28,7 +28,7 @@
            if (data.c_user !== <%= current_user.id %>) {
           const messagesContainer = document.querySelector('.messages');
           messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
-          scrollLastMessageIntoView();
+          // scrollLastMessageIntoView();
         }
       }
     })
