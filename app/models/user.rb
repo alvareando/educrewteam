@@ -2,8 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
-  has_many :messages, foreign_key: 'sender_id', dependent: :nullify
-  has_many :reviews
+  has_many :messages, foreign_key: 'sender_id', dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   has_attachment :photo
 
