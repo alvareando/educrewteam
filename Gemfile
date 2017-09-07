@@ -34,6 +34,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'money-rails'
 gem 'stripe'
 gem 'pundit'
+gem 'faker'
 
 group :development, :test do
   gem 'pry-byebug'
