@@ -2,11 +2,11 @@ class SessionsController < ApplicationController
   def index
     if params[:subject].present? && params[:university].present?
       # @sessions = Session.where(subject: params[:subject], university: params[:university])
-      @sessions = Session.where("subject ilike ? AND university ilike ?", params[:subject], params[:university])
+      @sessions = Session.where("subject ilike ? AND university ilike ?", "%#{params[:subject]}%", "%#{params[:university]}%")
     elsif params[:subject].present?
-      @sessions = Session.where("subject ilike ?", params[:subject])
+      @sessions = Session.where("subject ilike ?", "%#{params[:subject]}%")
     elsif params[:university].present?
-      @sessions = Session.where("university ilike ?", params[:university])
+      @sessions = Session.where("university ilike ?", "%#{params[:university]}%")
     else
       @sessions = Session.all
     end
