@@ -1,4 +1,8 @@
 <div class="message <%= user_is_messages_author ? "right" : "" %> ">
-  <%# image_tag message.sender.avatar_url, class: "avatar" %>
-  <div class="message-content"><%= message.body %> <p style="font-size: 8px">(<%= message.sender.first_name %>)</p></div>
+  <% avatar_url = message.sender.facebook_picture_url ? message.sender.facebook_picture_url : message.sender.google_picture_url %>
+  <% if avatar_url %>
+    <%= image_tag avatar_url, class: "avatar" %>
+  <% end %>
+  <div class="message-content"><%= message.body %></div>
+   <!-- <p style="font-size: 8px">(<%#= message.sender.first_name %>)</p> -->
 </div>

@@ -1,5 +1,65 @@
 video {
-  box-shadow: 1px 3px 4px #4D4C4E;
-  border-radius: 4px;
+  box-shadow: 1px 3px 4px rgba(0,0,0,0.6);
 }
 
+.student_video video {
+  box-shadow: 1px 3px 4px #4D4C4E;
+  border-radius: 4px;
+  width: 100%;
+}
+
+#tutor_video {
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  img {
+    filter: opacity(0.25);
+  }
+}
+
+#student_video {
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  height: 640px;
+  background-size: cover;
+  background-position: center;
+}
+
+.disconnect_area {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+// .tutor_background {
+//   opacity: 0.3;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   position: absolute;
+//   z-index: -1;
+//   background-size: cover;
+//   background-position: center;
+// }
+
+// .student_background {
+//   opacity: 0.3;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   position: absolute;
+//   z-index: -1;
+//   background-size: cover;
+//   background-position: center;
+// }
+
+#connection_button {
+  height: 43px;
+}
