@@ -14,7 +14,7 @@
         <%= link_to 'Join live session', '#', id: 'connection_button', class: 'btn btn-success', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Joining..." } %>
       </div>
       <div id="preview_camera"></div>
-      <div class="disconnect_">
+      <div class="disconnect_area">
         <div id="stop_button" class="btn btn-danger" style="display: none">Disconnect</div>
       </div>
       <%#= link_to 'Join live session', '#', id: 'connection_button', class: 'btn btn-success', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Joining..." } %>
@@ -45,17 +45,20 @@
   <script>
     const current_user = document.getElementById('current_user_id').innerHTML;
     const session_tutor = document.getElementById('tutor_id').innerHTML;
+    const tutorVideo = document.getElementById('tutor_video');
+    const studentVideo = document.getElementById('student_video');
+    const connectionButton = document.getElementById('connection_button');
+    const stopButton = document.getElementById('stop_button');
 
     function trackAdded(div, identity, track) {
       console.log(track);
-
       console.log(identity);
 
       // remove green join button
-      var startBtn = document.getElementById('connection_button');
-      if (startBtn !== null) {
-        startBtn.remove()
-      }
+      // var startBtn = document.getElementById('connection_button');
+      // if (startBtn !== null) {
+      //   startBtn.remove()
+      // }
 
       if (current_user === session_tutor){
         let temporary = track.attach();
@@ -72,15 +75,14 @@
 
     function participantConnected(participant) {
       console.log('Participant "%s" connected', participant.identity);
-
-      const tutorVideo = document.getElementById('tutor_video');
-      const studentVideo = document.getElementById('student_video');
-      const connectionButton = document.getElementById('connection_button');
-      const stopButton = document.getElementById('stop_button');
-
+      // const tutorVideo = document.getElementById('tutor_video');
+      // const studentVideo = document.getElementById('student_video');
+      // const connectionButton = document.getElementById('connection_button');
+      // const stopButton = document.getElementById('stop_button');
       if (current_user === session_tutor){
         participant.on('trackAdded', track => trackAdded(tutorVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(tutorVideo, participant.identity, track));
+        connectionButton.style.display = 'none';
         studentVideo.style.display = 'none';
         tutorVideo.style.display = 'block';
         stopButton.style.display = 'block';
@@ -92,6 +94,7 @@
       } else{
         participant.on('trackAdded', track => trackAdded(studentVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(studentVideo, participant.identity, track));
+        connectionButton.style.display = 'none';
         tutorVideo.style.display = 'none';
         studentVideo.style.display = 'block';
         stopButton.style.display = 'block';
@@ -103,12 +106,19 @@
       };
       participant.on('trackRemoved', trackRemoved);
     }
+
     function participantDisconnected(participant) {
       console.log('Participant "%s" disconnected', participant.identity);
+      console.log(participant);
+      // const tutorVideo = document.getElementById('tutor_video');
+      // const studentVideo = document.getElementById('student_video');
+      // const connectionButton = document.getElementById('connection_button');
+      // const stopButton = document.getElementById('stop_button');
       tutorVideo.style.display = 'none';
       studentVideo.style.display = 'block';
       stopButton.style.display = 'none';
       connectionButton.style.display = 'block';
+      connectionButton.text = "Join live session"
       participant.tracks.forEach(trackRemoved);
       // document.getElementById(participant.sid).remove();
     }
@@ -133,6 +143,11 @@
           room.on('participantConnected', participantConnected);
           room.on('participantDisconnected', participantDisconnected);
           room.once('disconnected', error => room.participants.forEach(participantDisconnected));
+
+          stopButton.addEventListener('click', function(){
+            room.disconnect();
+            participantDisconnected();
+          });
         });
       }else{
         console.log('student?');
@@ -143,13 +158,18 @@
           room.on('participantConnected', participantConnected);
           room.on('participantDisconnected', participantDisconnected);
           room.once('disconnected', error => room.participants.forEach(participantDisconnected));
+
+          stopButton.addEventListener('click', function(){
+            room.disconnect();
+            participantDisconnected();
+          });
         });
       };
     }
 
     const bouton = document.getElementById('connection_button');
     bouton.addEventListener('click', streaming );
-    stopButton.addEventListener('click', participantDisconnected);
+
   </script>
 
 
