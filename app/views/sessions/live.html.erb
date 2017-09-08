@@ -8,15 +8,20 @@
   <hr>
   <div class="row">
     <div class="col-xs-8">
+
       <div id="tutor_video" class="" style="background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) ), url(<%= image_path('cover.png') %>); display: none;"></div>
       <div id="student_video" class="" style="background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) ), url(<%= image_path('cover.png') %>)">
         <%= link_to 'Join live session', '#', id: 'connection_button', class: 'btn btn-success', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Joining..." } %>
       </div>
       <div id="preview_camera"></div>
+      <div class="disconnect_">
+        <div id="stop_button" class="btn btn-danger" style="display: none">Disconnect</div>
+      </div>
       <%#= link_to 'Join live session', '#', id: 'connection_button', class: 'btn btn-success', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Joining..." } %>
       <div id="current_user_id" style="display: none"><%= @user_id %></div>
       <div id="tutor_id" style="display: none"><%= @tutor_id %></div>
     </div>
+
     <div class="col-xs-4">
       <div class="chat-header"><h4><%= @chatroom.session.title %></h4></div>
       <div class="messages">
@@ -55,7 +60,7 @@
       if (current_user === session_tutor){
         let temporary = track.attach();
         div.appendChild(temporary);
-        // temporary.classList.add('col-xs-4');
+        temporary.classList.add('col-xs-4');
       } else if (identity === session_tutor){
         let temporary = track.attach();
         div.appendChild(temporary);
@@ -70,12 +75,15 @@
 
       const tutorVideo = document.getElementById('tutor_video');
       const studentVideo = document.getElementById('student_video');
+      const connectionButton = document.getElementById('connection_button');
+      const stopButton = document.getElementById('stop_button');
 
       if (current_user === session_tutor){
         participant.on('trackAdded', track => trackAdded(tutorVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(tutorVideo, participant.identity, track));
         studentVideo.style.display = 'none';
         tutorVideo.style.display = 'block';
+        stopButton.style.display = 'block';
         // const { createLocalVideoTrack } = require('twilio-video');
         // createLocalVideoTrack().then(track => {
         //   const localMediaContainer = document.getElementById('preview_camera');
@@ -86,6 +94,7 @@
         participant.tracks.forEach(track => trackAdded(studentVideo, participant.identity, track));
         tutorVideo.style.display = 'none';
         studentVideo.style.display = 'block';
+        stopButton.style.display = 'block';
         // const { createLocalVideoTrack } = require('twilio-video');
         // createLocalVideoTrack().then(track => {
         //   const localMediaContainer = document.getElementById('preview_camera');
@@ -96,7 +105,10 @@
     }
     function participantDisconnected(participant) {
       console.log('Participant "%s" disconnected', participant.identity);
-
+      tutorVideo.style.display = 'none';
+      studentVideo.style.display = 'block';
+      stopButton.style.display = 'none';
+      connectionButton.style.display = 'block';
       participant.tracks.forEach(trackRemoved);
       // document.getElementById(participant.sid).remove();
     }
@@ -137,6 +149,7 @@
 
     const bouton = document.getElementById('connection_button');
     bouton.addEventListener('click', streaming );
+    stopButton.addEventListener('click', participantDisconnected);
   </script>
 
 
