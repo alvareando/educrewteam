@@ -71,7 +71,7 @@ dixon_session_over = Session.create!(tutor: dixon, title: "Intro to Maths", desc
 new_chatroom = Chatroom.create!
 dixon_session_over.chatroom = new_chatroom
 
-dixon_session = Session.create!(tutor: dixon, title: "Mathematical Modelling", description: "This course is complementary to Part II Principles of Statistics, but takes a more applied perspective. The session will cover linear and generalised linear models, which provide a powerful and flexible framework for the study of the relationship between a response (e.g. alcohol consumption) and one or more explanatory variables (age, sex etc.).", duration: duration, university: "Queen Mary University", subject: subject, price: price, date: date, time: time )
+dixon_session = Session.create!(tutor: dixon, title: "Mathematical Modelling", description: "This course is complementary to Part II Principles of Statistics, but takes a more applied perspective. The session will cover linear and generalised linear models, which provide a powerful and flexible framework for the study of the relationship between a response (e.g. alcohol consumption) and one or more explanatory variables (age, sex etc.).", duration: duration, university: "Queen Mary University", subject: subject, price: price, date: Date.today, time: Time.new(2000, 01, 01, 19, 00, 00, '+01:00') )
 new_chatroom = Chatroom.create!
 dixon_session.chatroom = new_chatroom
 
