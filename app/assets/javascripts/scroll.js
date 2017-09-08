@@ -1,3 +1,4 @@
+
 function scrollLastMessageIntoView() {
   // const messages = document.querySelectorAll('.message');
   // const lastMessage = messages[messages.length - 1];
@@ -8,3 +9,4 @@ function scrollLastMessageIntoView() {
   var messagesContainer = document.querySelector(".messages");
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+
