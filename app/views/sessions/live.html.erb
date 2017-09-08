@@ -52,7 +52,6 @@
 
     function trackAdded(div, identity, track) {
       console.log(track);
-
       console.log(identity);
 
       // remove green join button
@@ -83,6 +82,7 @@
       if (current_user === session_tutor){
         participant.on('trackAdded', track => trackAdded(tutorVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(tutorVideo, participant.identity, track));
+        connectionButton.style.display = 'none';
         studentVideo.style.display = 'none';
         tutorVideo.style.display = 'block';
         stopButton.style.display = 'block';
@@ -94,6 +94,7 @@
       } else{
         participant.on('trackAdded', track => trackAdded(studentVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(studentVideo, participant.identity, track));
+        connectionButton.style.display = 'none';
         tutorVideo.style.display = 'none';
         studentVideo.style.display = 'block';
         stopButton.style.display = 'block';
@@ -108,6 +109,7 @@
 
     function participantDisconnected(participant) {
       console.log('Participant "%s" disconnected', participant.identity);
+      console.log(participant);
       // const tutorVideo = document.getElementById('tutor_video');
       // const studentVideo = document.getElementById('student_video');
       // const connectionButton = document.getElementById('connection_button');
@@ -141,6 +143,11 @@
           room.on('participantConnected', participantConnected);
           room.on('participantDisconnected', participantDisconnected);
           room.once('disconnected', error => room.participants.forEach(participantDisconnected));
+
+          stopButton.addEventListener('click', function(){
+            room.disconnect();
+            participantDisconnected();
+          });
         });
       }else{
         console.log('student?');
@@ -151,13 +158,18 @@
           room.on('participantConnected', participantConnected);
           room.on('participantDisconnected', participantDisconnected);
           room.once('disconnected', error => room.participants.forEach(participantDisconnected));
+
+          stopButton.addEventListener('click', function(){
+            room.disconnect();
+            participantDisconnected();
+          });
         });
       };
     }
 
     const bouton = document.getElementById('connection_button');
     bouton.addEventListener('click', streaming );
-    stopButton.addEventListener('click', participantDisconnected);
+
   </script>
 
 

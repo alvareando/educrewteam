@@ -31,7 +31,7 @@ video {
   background-position: center;
 }
 
-.disconnect_area {
+.disconnect_area, .connect_area {
   display: flex;
   justify-content: space-around;
   align-items: center;
