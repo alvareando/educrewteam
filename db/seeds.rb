@@ -10,6 +10,7 @@ SessionParticipation.destroy_all
 Session.destroy_all
 User.destroy_all
 
+dixon = User.create!(tutor: true, about: "I have studied for now 5 years and very proficient in the courses that I teach on EduCrew", email: "dixon@lewagon.com", password: "123123", first_name: "Dixon", last_name: "Lewis", facebook_picture_url: "https://kitt.lewagon.com/placeholder/users/dixonlewissuarez")
 alex = User.create!(tutor: true, about: "I have studied for now 5 years and very proficient in the courses that I teach on EduCrew", email: "alex@lewagon.com", password: "123123", first_name: "Alex", last_name: "Benoit", facebook_picture_url: "https://kitt.lewagon.com/placeholder/users/alex-felix")
 seb = User.create!(tutor: true, about: "I have studied for now 5 years and very proficient in the courses that I teach on EduCrew", email: "seb@lewagon.com", password: "123123", first_name: "Seb", last_name: "Saunier", facebook_picture_url: "https://kitt.lewagon.com/placeholder/users/ssaunier")
 arthur = User.create!(tutor: true, about: "I have studied for now 5 years and very proficient in the courses that I teach on EduCrew", email: "arthur@lewagon.com", password: "123123", first_name: "Arthur", last_name: "Littmann", facebook_picture_url: "https://kitt.lewagon.com/placeholder/users/arthur-littm")
@@ -66,16 +67,16 @@ price = prices.sample
 date = dates.sample
 time = times.sample
 
-alex_session_over = Session.create!(tutor: alex, title: "Intro to Maths", description: "This course is complementary to Part II Principles of Statistics, but takes a more applied perspective. The session will cover linear and generalised linear models, which provide a powerful and flexible framework for the study of the relationship between a response (e.g. alcohol consumption) and one or more explanatory variables (age, sex etc.).", duration: duration, university: "Queen Mary University", subject: subject, price: price, date: Date.today - 10.days, time: Time.now - 3.hours )
+dixon_session_over = Session.create!(tutor: dixon, title: "Intro to Maths", description: "This course is complementary to Part II Principles of Statistics, but takes a more applied perspective. The session will cover linear and generalised linear models, which provide a powerful and flexible framework for the study of the relationship between a response (e.g. alcohol consumption) and one or more explanatory variables (age, sex etc.).", duration: duration, university: "Queen Mary University", subject: subject, price: price, date: Date.today - 10.days, time: Time.now - 3.hours )
 new_chatroom = Chatroom.create!
-alex_session_over.chatroom = new_chatroom
+dixon_session_over.chatroom = new_chatroom
 
-alex_session = Session.create!(tutor: alex, title: "Mathematical Modelling", description: "This course is complementary to Part II Principles of Statistics, but takes a more applied perspective. The session will cover linear and generalised linear models, which provide a powerful and flexible framework for the study of the relationship between a response (e.g. alcohol consumption) and one or more explanatory variables (age, sex etc.).", duration: duration, university: "Queen Mary University", subject: subject, price: price, date: date, time: time )
+dixon_session = Session.create!(tutor: dixon, title: "Mathematical Modelling", description: "This course is complementary to Part II Principles of Statistics, but takes a more applied perspective. The session will cover linear and generalised linear models, which provide a powerful and flexible framework for the study of the relationship between a response (e.g. alcohol consumption) and one or more explanatory variables (age, sex etc.).", duration: duration, university: "Queen Mary University", subject: subject, price: price, date: date, time: time )
 new_chatroom = Chatroom.create!
-alex_session.chatroom = new_chatroom
+dixon_session.chatroom = new_chatroom
 
-Review.create!(user: seb, session: alex_session_over, body: "Great Tutor, really knew his stuff!")
-Review.create!(user: boris, session: alex_session_over, body: "Was a great help just before my math test")
-Review.create!(user: arthur, session: alex_session_over, body: "I really liked his way of teaching")
-Review.create!(user: sandrine, session: alex_session_over, body: "Very pedantic! He is a nice guy")
+Review.create!(user: seb, session: dixon_session_over, body: "Great Tutor, really knew his stuff!")
+Review.create!(user: boris, session: dixon_session_over, body: "Was a great help just before my math test")
+Review.create!(user: arthur, session: dixon_session_over, body: "I really liked his way of teaching")
+Review.create!(user: sandrine, session: dixon_session_over, body: "Very pedantic! He is a nice guy")
 
