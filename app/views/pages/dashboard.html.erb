@@ -1,113 +1,96 @@
-
 <div class="container">
   <div class="dashboard-title">
-    <h1 class="text-center">Student Dashboard</h1>
+    <h1 class="text-center">Tutor Dashboard</h1>
   </div>
-  <div class="dashboard-info"></div>
-    <div class="tab">
-      <ul class="nav nav-tabs sessions-tabs" role="tablist">
-        <li role="presentation" class="active session-tab"><a href="#upcoming-sessions" aria-controls="upcoming-sessions" role="tab" data-toggle="tab">Upcoming sessions (<%= @ongoing_sessions.count %>)</a></li>
-        <li role="presentation" class="session-tab"><a href="#past-sessions" aria-controls="past-sessions" role="tab" data-toggle="tab">Past Sessions (<%= @over_sessions.count %>)</a></li>
-    </div>
-    <div class="tab-content dash-cards">
-      <div role="tabpanel" class="tab-pane active" id="upcoming-sessions">
-        <div class="row">
-          <% if @ongoing_sessions.empty? %>
-            <div class="empty-message">
-              <em>No upcoming sessions yet!</em>
-            </div>
-          <% else %>
-            <% @ongoing_sessions.each do |session| %>
-              <div class="col-xs-6 col-sm-4 col-md-4">
-                <%= link_to session_path(session), class: "card-student-dashboard-link" do %>
-                <div class="card" style= "background: linear-gradient(to right,<%= session.get_color(session.subject) %>)">
-                  <div class="card-top">
-                    <div class="card-subject">
-                      # <%= session.subject %>
-                    </div>
-                    <div class="card-avatar">
-                      <%= image_tag session.tutor.picture, class: "small-card-avatar" %>
-                    </div>
-                      <div class="main-title">
-                        <div class="card-title">
-                          <%= session.title %>
-                        </div>
-                        <div class="card-university">
-                          <%= session.university %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-details">
-                      <div class="card-date-duration">
-                        <div class="card-date flex-bottom">
-                            <i class="fa fa-clock-o"></i><%= session.date.strftime("%A, %e %B") %> - <%= session.time.strftime("%H:%M") %>
-                        </div>
-                        <div class="card-duration flex-bottom">
-                          <i class="fa fa-hourglass-half"></i> 3 hours
-                        </div>
-                      </div>
-                      <div class="card-price">
-                        <%= humanized_money_with_symbol(session.price) %>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
+  <div class="dashboard-content">
+    <div class="dashboard-left">
+      <div class="tab">
+        <ul class="nav nav-tabs sessions-tabs" role="tablist">
+          <li role="presentation" class="active session-tab"><a href="#upcoming-sessions" aria-controls="upcoming-sessions" role="tab" data-toggle="tab">Upcoming sessions (<%= @ongoing_sessions.count %>)</a></li>
+          <li role="presentation" class="session-tab"><a href="#past-sessions" aria-controls="past-sessions" role="tab" data-toggle="tab">Past Sessions (<%= @over_sessions.count %>)</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="upcoming-sessions">
+          <div class="row">
+            <% if @ongoing_sessions.empty? %>
+              <div class="empty-message">
+                <em>No upcoming sessions yet!</em>
               </div>
+            <% else %>
+              <% @ongoing_sessions.each do |session| %>
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                  <%= link_to session_path(session) do %>
+                    <div class="card">
+                      <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
+                      <div class="card-description">
+                        <p><%= session.description %></p>
+                      </div>
+                      </div>
+                      <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                      <p class="card-title"><%= session.title %></p>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="past-sessions">
+          <div class="row">
+            <% if @over_sessions.empty? %>
+              <div class="empty-message">
+                <em>No past sessions yet!</em>
+              </div>
+            <% else %>
+              <% @over_sessions.each do |session| %>
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                  <%= link_to session_path(session) do %>
+                    <div class="card">
+                      <div class="card-img-top" style="background-image: url('<%= session.tutor.picture %>')">
+                        <div class="card-description">
+                          <p><%= session.description %></p>
+                        </div>
+                      </div>
+                      <span class="card-author-price"><%= session.tutor.name.upcase %> - $<%= session.price %></span>
+                      <p class="card-title"><%= session.title %></p>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
-      <div role="tabpanel" class="tab-pane" id="past-sessions">
-        <div class="row">
-          <% if @over_sessions.empty? %>
-            <div class="empty-message">
-              <em>No past sessions yet!</em>
-            </div>
-          <% else %>
-            <% @over_sessions.each do |session| %>
-              <div class="col-xs-6 col-sm-4 col-md-4">
-                <%= link_to session_path(session), class: "card-student-dashboard-link" do %>
-                <div class="card" style= "background: linear-gradient(to right,<%= session.get_color(session.subject) %>)">
-                  <div class="card-top">
-                    <div class="card-subject">
-                      # <%= session.subject %>
-                    </div>
-                    <div class="card-avatar">
-                      <%= image_tag session.tutor.picture, class: "small-card-avatar" %>
-                    </div>
-                      <div class="main-title">
-                        <div class="card-title">
-                          <%= session.title %>
-                        </div>
-                        <div class="card-university">
-                          <%= session.university %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-details">
-                      <div class="card-date-duration">
-                        <div class="card-date flex-bottom">
-                            <i class="fa fa-clock-o"></i><%= session.date.strftime("%A, %e %B") %> - <%= session.time.strftime("%H:%M") %>
-                        </div>
-                        <div class="card-duration flex-bottom">
-                          <i class="fa fa-hourglass-half"></i> 3 hours
-                        </div>
-                      </div>
-                      <div class="card-price">
-                        <%= humanized_money_with_symbol(session.price) %>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          <% end %>
+    </div>
+    <div class="dashboard-right">
+    <div class="tutor-session-btn">
+      <%= link_to new_session_path class: "tutor-session-btn" do %>
+        Create a session
+      <% end %>
+    </div>
+      <div class="wrapper" style="border:1px solid rgba(1,1,1,0.6);; margin:26px; padding:38px; height:400px;">
+        <div class="table-title">
+          <p style="font-weight: bold; color:rgba(1,1,1,0.6);">Tutoring summary</p>
+            <p style="color:rgba(1,1,1,0.4); border-bottom: 1px solid grey; padding-bottom: 4px; color:rgba(1,1,1,0.5);">Check back for the tutoring stats when you have the first session</p>
+        </div>
+        <div class="table-earnings">
+          <p class="alignleft" style="color:rgba(1,1,1,0.5);">August earnings</p>
+          <p class="alignright" style="color:#C37F63">$0.00</p>
+          <p class="alignleft" style="color:rgba(1,1,1,0.5);">30-day views</p>
+          <p class="alignright" style="color:#C37F63">0</p>
+        </div>
+        <div class="table-ratings">
+          <p class="alignleft" style="border-top: 1px solid grey; padding-top: 4px; color:rgba(1,1,1,0.5);">Overall rating No reviews</p>
+          <p class="alignleft" style="color:rgba(1,1,1,0.5);">Total reviews</p>
+          <p class="alignright" style="color:#C37F63">0</p>
+          <p class="alignleft" style="color:rgba(1,1,1,0.5);">5-star reviews</p>
+          <p class="alignright" style="color:#C37F63">0%</p>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <!-- Modal -->
 <%#= link_to "#", class: "btn btn-default", data: { toggle: "modal" , target: "#myModal" } do %>
   <!-- <i class="fa fa-wrench"></i> -->

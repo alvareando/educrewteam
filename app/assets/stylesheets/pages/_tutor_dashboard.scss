@@ -1,71 +1,59 @@
+
 .nav {
   border: none !important;
 }
-
 .tab-content {
     color: #fff;
+    padding: 5px 50px;
 }
-
 .nav-tabs > li > a {
   border: none !important;
   padding: 30px 0px;
   text-align: center;
 }
-
 .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
   background-color: $edu-light-brown !important;
   border: none;
   border-radius: 0;
   color:#fff;
 }
-
 .nav-tabs > li.active > a {
   background-color: $edu-light-brown !important;
 }
-
 .session-tab {
   width: 50%;
   border-bottom: 1px solid $edu-brown;
   display: flex;
   // height: 130px;
-
   a {
     text-align: center;
     padding: 30px 0;
     color: black;
-
     &:hover {
       color: black;
     }
   }
 }
-
 .empty-message {
   height: 100px;
   color: grey;
   text-align: center;
   padding-top: 50px;
 }
-
 .tutoring-summary-table{
   color:white;
   background: $edu-light-brown;
-
 }
-
 .dashboard-content {
   display: flex;
 }
-
 .dashboard-left {
   flex: 0 0 70%;
 }
-
 .dashboard-right {
   flex: 0 0 30%;
   margin: 20px;
 }
-
 .tutor-session-btn{
   border: 1px solid #C37F63;
   background-color: #C37F63;
@@ -78,4 +66,10 @@
 .tutor-session-btn a{
   color: white;
   text-decoration:none;
+}
+.alignleft {
+  float: left;
+}
+.alignright {
+  float: right;
 }
