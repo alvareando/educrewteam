@@ -1,18 +1,22 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-8">
-
       <h1>Live for <%= @session.title %></h1>
-      <p>video</p>
-      <div id="tutor_video" class=""></div>
-      <div id="student_video" class=""></div>
-      <div id="preview_camera"></div>
-      <div id="connection_button" class="btn btn-success"></div>
-      <div id="current_user_id" class="btn btn-primary" style="display: block"><%= @user_id %></div>
-      <div id="tutor_id" class="btn btn-primary" style="display: block"><%= @tutor_id %></div>
+      <span>You are <%= @session.tutor == current_user ? 'the tutor' : 'a student' %></span>
     </div>
-
-
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-8">
+      <div id="tutor_video" class="" style="background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) ), url(<%= image_path('cover.png') %>); display: none;"></div>
+      <div id="student_video" class="" style="background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) ), url(<%= image_path('cover.png') %>)">
+        <%= link_to 'Join live session', '#', id: 'connection_button', class: 'btn btn-success', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Joining..." } %>
+      </div>
+      <div id="preview_camera"></div>
+      <%#= link_to 'Join live session', '#', id: 'connection_button', class: 'btn btn-success', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Joining..." } %>
+      <div id="current_user_id" style="display: none"><%= @user_id %></div>
+      <div id="tutor_id" style="display: none"><%= @tutor_id %></div>
+    </div>
     <div class="col-xs-4">
       <div class="chat-header"><h4><%= @chatroom.session.title %></h4></div>
       <div class="messages">
@@ -27,23 +31,7 @@
       </div>
     </div>
   </div>
-
-
-  <div class="row">
-    <div class="col-xs-12">
-      <h4>Resources</h4>
-      <ul>
-        <li><%= link_to "Slides", "#" %></li>
-        <li><%= link_to "Exercises", "#" %></li>
-      </ul>
-    </div>
-  </div>
 </div>
-
-
-
-
-
 
 <%= content_for :after_js do %>
   <script src="//media.twiliocdn.com/sdk/js/video/v1/twilio-video.min.js"></script>
@@ -55,12 +43,20 @@
 
     function trackAdded(div, identity, track) {
       console.log(track);
+
       console.log(identity);
+
+      // remove green join button
+      var startBtn = document.getElementById('connection_button');
+      if (startBtn !== null) {
+        startBtn.remove()
+      }
+
       if (current_user === session_tutor){
         let temporary = track.attach();
         div.appendChild(temporary);
-        temporary.classList.add('col-xs-4');
-      }else if (identity === session_tutor){
+        // temporary.classList.add('col-xs-4');
+      } else if (identity === session_tutor){
         let temporary = track.attach();
         div.appendChild(temporary);
       };
@@ -79,20 +75,22 @@
         participant.on('trackAdded', track => trackAdded(tutorVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(tutorVideo, participant.identity, track));
         studentVideo.style.display = 'none';
-        const { createLocalVideoTrack } = require('twilio-video');
-        createLocalVideoTrack().then(track => {
-          const localMediaContainer = document.getElementById('preview_camera');
-          localMediaContainer.appendChild(track.attach());
-        });
-      }else{
+        tutorVideo.style.display = 'block';
+        // const { createLocalVideoTrack } = require('twilio-video');
+        // createLocalVideoTrack().then(track => {
+        //   const localMediaContainer = document.getElementById('preview_camera');
+        //   localMediaContainer.appendChild(track.attach());
+        // });
+      } else{
         participant.on('trackAdded', track => trackAdded(studentVideo, participant.identity, track));
         participant.tracks.forEach(track => trackAdded(studentVideo, participant.identity, track));
         tutorVideo.style.display = 'none';
-        const { createLocalVideoTrack } = require('twilio-video');
-        createLocalVideoTrack().then(track => {
-          const localMediaContainer = document.getElementById('preview_camera');
-          localMediaContainer.appendChild(track.attach());
-        });
+        studentVideo.style.display = 'block';
+        // const { createLocalVideoTrack } = require('twilio-video');
+        // createLocalVideoTrack().then(track => {
+        //   const localMediaContainer = document.getElementById('preview_camera');
+        //   localMediaContainer.appendChild(track.attach());
+        // });
       };
       participant.on('trackRemoved', trackRemoved);
     }
@@ -105,7 +103,6 @@
 
 
     const streaming = () => {
-
       const current_user = document.getElementById('current_user_id').innerHTML;
       const session_tutor = document.getElementById('tutor_id').innerHTML;
 
