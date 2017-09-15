@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  after_create :send_welcome_email
 
   has_many :messages, foreign_key: 'sender_id', dependent: :destroy
   has_many :reviews, dependent: :destroy
@@ -11,6 +12,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   devise :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
+
+
+
+
 
   def name
     "#{first_name} #{last_name}"
@@ -88,5 +93,11 @@ class User < ApplicationRecord
 
   def paid_for?(session)
     SessionParticipation.where(session: session).where(student: self).present?
+  end
+
+   private
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver_now
   end
 end
