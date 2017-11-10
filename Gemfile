@@ -36,7 +36,6 @@ gem 'stripe'
 gem 'pundit'
 gem 'faker'
 gem 'postmark-rails'
-gem 'webpush'
 
 group :development, :test do
   gem 'pry-byebug'
