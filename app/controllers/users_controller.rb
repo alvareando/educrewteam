@@ -17,16 +17,10 @@ class UsersController < ApplicationController
   end
 
   def update_to_tutor
-
     @user = current_user
-
-    if @user.update(user_params.merge(tutor: true))
-      UserMailer.become_tutor_confirmation(@user).deliver_now
-      flash[:notice] = "Only one last step to become a tutor! Check your email"
-      redirect_to root_path
-    else
-      render :new
-    end
+    @user.update(user_params.merge(tutor: true))
+    flash[:notice] = "Thanks for becoming a tutor!"
+    redirect_to root_path
   end
 
   private
